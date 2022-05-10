@@ -1,0 +1,75 @@
+<header class="">
+    <!-- start navigation -->
+    <nav class="navbar no-sticky navbar-expand-lg navbar-light bg-light header-light header-reverse-scroll top-logo z-index-2">
+        <div class="container-fluid flex-wrap nav-header-container" style="background-color: #e5fbe6;">
+            <div class="col-12 col-sm-12 col-lg-8 mx-lg-auto text-center d-flex align-items-center justify-content-between">       
+                <div class="col d-flex align-items-center justify-content-start text-extra-dark-gray ms-auto p-0">
+                    <div class="header-search-icon search-form-wrapper">
+                        <a href="javascript:void(0)" class="search-form-icon header-search-form"><i class="fa fa-search"></i></a>
+                        <!-- start search input -->
+                        <div class="form-wrapper">
+                            <button title="Close" type="button" class="search-close alt-font">×</button>
+                            <form id="searchForm" role="search" method="GET" class="search-form text-start">
+                                <div class="search-form-box">
+                                    <input class="search-input alt-font" id="searchFormInput" placeholder="Que recherchez-vous ?" name="q" value="" type="text" autocomplete="off">
+                                    <button type="submit" class="search-button">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- end search input -->
+                    </div>
+                </div>
+                
+                <a class="col navbar-brand mx-auto px-0 flex-column flex-center-x" href="{{ path('app_index') }}">
+                    <h1 class="h-font h1 text-custom-h1 m-0 text-success" style="line-height: 100%;">Herboristory</h1>
+                </a>                            
+                
+                <div class="col flex-end flex-center-y">
+                    {% if is_granted('ROLE_USER') %}
+                        <a href="{{ path('app_post_new') }}" style="height: 32px; width: 32px;" class="btn btn-sm btn-rounded border flex-center">
+                            <i class="fa fa-plus small"></i>
+                        </a>
+                        <div class="position-relative" style="width:fit-content">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ asset(upload_directory ~ app.user.image) }}" class="profile-picture sm">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li class="px-5 my-3">
+                                    <div class="text-center d-flex flex-column" style="line-height: 1.5;">
+                                        <img src="{{ asset(upload_directory ~ app.user.image) }}" class="profile-picture md m-auto">
+                                        <span class="h5 font-weight-500 text-no-break p-0">{{ app.user.username }}</span>
+                                        <span class="small text-no-break">{{ app.user.email }}</span>
+                                    </div>
+                                </li>
+                                <li class="text-center my-4">
+                                    <a href="{{ path('app_user_profile', {user: app.user.id}) }}" class="dropdown-item btn btn-sm btn-rounded small">
+                                        <i class="fa fa-user me-2 small"></i> Voir mon profil
+                                    </a>
+                                </li>
+                                <hr class="bg-secondary mb-2">
+                                <li>
+                                    <a href="{{ path('app_user_settings', {type: 'account'}) }}" class="dropdown-item">
+                                        <i class="fa fa-cog me-2 small"></i> Paramètres
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('app_logout') }}" class="dropdown-item">
+                                        <i class="fa fa-power-off text-danger me-2 small"></i> Se déconnecter
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    {% else %}
+                    <a href="{{ path('app_index') }}" class="btn btn-sm btn-rounded">
+                        Se connecter
+                    </a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </nav>
+    <!-- end navigation -->
+</header>

@@ -1,0 +1,206 @@
+<!doctype html>
+<html class="no-js" lang="fr">
+    <head>
+        <title>Herboristory - Votre herbier en ligne</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="author" content="ThemeZaa">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" />
+        <meta name="description" content="">
+        <!-- favicon icon -->
+        <link rel="shortcut icon" href="{{ asset('img/brand/icon.png') }}">
+        <link rel="apple-touch-icon" href="{{ asset('img/brand/icon.png') }}">
+        <!-- style sheets and font icons  -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/font-icons.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/theme-vendors.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/default.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css') }}" />
+    </head>
+    <body style="background: url({{ asset('img/brand/icon.png') }});">
+        <!-- start banner section -->
+        <section class="p-0 cover-background min-h-100vh" style="background-color: #edffea">
+            <div class="container-fluid px-0">
+                <div class="row">
+                    <div class="col-auto col-auto col-sm-6 m-auto full-screen-auto sm-padding-20px-tb sm-padding-35px-lr text-center text-md-start" style="height: 100vh;">
+                        <div class="h-100 flex-center flex-column py-5">
+                            <a class="flex-center flex-column" href="index.html">
+                                <div class="flex-center-x align-items-end position-relative">
+                                    <h1 class="text-uppercase fw-bold border-bottom mb-0 display-1" style="color: #419e3c; border-color: #419e3c50 !important; word-break: keep-all;">Herboristory</h1>
+                                    <!-- <span class="alt-font small text-muted position-absolute" style="right: -27px;">. com</span> -->
+                                </div>
+                                <div class="position-relative">
+                                    <span class="alt-font h4 font-weight-300 mt-1" style="color:#56d44fCC;">Votre herbier en ligne
+                                    <small class="alt-font small opacity-75 text-muted" style="font-size: small;"> et sauvage !</small></span>
+                                </div>
+                                <!-- <img src="{{ asset('img/brand/icon.png') }}" class="default-logo" style="margin-left: -15px; margin-top: -8px;" width="85px" alt=""> -->
+                            </a>
+                            <div class="social-icon-style-06 dark flex-center flex-column">
+                                <div class="px-3 py-5 my-5 border-bottom border-top" style="border-color: #419e3c15 !important; background-color: #fff1;">
+                                    <span class="d-block h3 ps-3" style="color:#56d44fDD;">Amis cueilleurs,</span>
+                                    <span class="d-block alt-font h5 text-success">votre encyclopédie des plantes sauvages est en construction !</span>
+                                </div>
+                                <div class="text-center" style="height: 70px;">
+                                    <form id="notify_form" action="{{ path('app_subscribe') }}" method="post" class="notify-popup-main">
+                                        <div class="container" {{ (hasSubscriber == true) ? 'style="display: none;"' }}>
+                                            <div class="row align-items-center justify-content-center text-center ">
+                                                <div class="col-12 col-md-12 col-lg-12 notify-form padding-80px-bottom md-padding-30px-bottom sm-no-padding-bottom position-relative">
+                                                    <span class="text-center alt-font h4 text-uppercase">Inscrivez-vous !</span>
+                                                    <div class="newsletter-email position-relative w-100 d-block">
+                                                        <input class="border-radius-5px extra-small-input m-0 required" name="email" placeholder="Votre adresse email" type="email">
+                                                        <input type="hidden" name="redirect" value="">
+                                                        <button class="btn line-height-0px text-small text-extra-dark-gray submit" type="submit"><i class="fa fa-arrow-right"></i></button>
+                                                    </div>
+                                                    <div class="form-results d-none border-radius-5px position-absolute top-1 start-0"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="hasSubscriber" style="display: {{ (hasSubscriber == true) ? 'block' : 'none' }};">
+                                            <div class="card px-3 py-2 flex-center-y flex-center flex-row" style="background-color: #fff9;">
+                                                <i class="fa fa-check text-success"></i>
+                                                <span class="ms-4">Vous êtes inscris à la newsletter</span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                            <!-- <div class="text-center flex-center flex-column justify-content-between">
+                                
+                                <div class="m-auto my-5">
+                                    <div class="ms-5 alt-font text-md-start text-muted margin-5px-bottom d-flex">
+                                        <span class="w-10px h-1px bg-secondary align-self-center position-relative top-minus-1px margin-10px-right flex-shrink-0"></span>
+                                        <div class="media-body flex-grow-1 h5">Herboristory, c'est...</div>
+                                    </div>
+                                    <span class="text-start w-100 m-auto ms-3 text-small">Une plateforme en ligne qui regroupe les informations d'un grand nombre de plantes sauvages comestibles, médicinales et toxiques.</span>
+                                    <span class="d-block text-center text-success">C'est votre encyclopédie des plantes sauvages en ligne !</span>
+                                </div>
+                                                
+                                                                   
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end banner section -->
+        <!-- start scroll to top -->
+        <a class="scroll-top-arrow" href="javascript:void(0);"><i class="feather icon-feather-arrow-up"></i></a>
+        <!-- end scroll to top -->
+        <!-- javascript -->
+        <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/theme-vendors.min.js') }}"></script>
+        <!-- <script type="text/javascript" src="{{ asset('js/main.js') }}"></script> -->
+        <script>
+            $( document ).on( 'click', '.submit', function() {
+                var error       = false,
+                    captchaFlag = false,
+                    _this       = $( this ),
+                    formObj     = _this.parents( 'form' ),
+                    emailFormat = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+                    telFormat   = /[0-9 -()+]+$/,
+                    actionURL   = formObj.attr( 'action' ),
+                    resultsObj  = formObj.find( '.form-results' ),
+                    grecaptchav3= _this.attr( 'data-sitekey' ) || '',
+                    redirectVal = formObj.find( '[name="redirect"]' ).val();
+                formObj.find( '.required' ).removeClass( 'error' );
+                formObj.find( '.required' ).each( function() {
+                    var __this   = $( this ),
+                        fieldVal= __this.val();
+                    if( fieldVal == '' || fieldVal == undefined ) {
+                        error = true;
+                        __this.addClass( 'error' );
+                    } else if( __this.attr( 'type' ) == 'email' && ! emailFormat.test( fieldVal ) ) { 
+                        error = true;
+                        __this.addClass( 'error' );
+                    } else if( __this.attr( 'type' ) == 'tel' && ! telFormat.test( fieldVal ) ) { 
+                        error = true;
+                        __this.addClass( 'error' );
+                    }
+                });
+                var termsObj = formObj.find( '.terms-condition' );
+                if ( termsObj.length > 0 ) {
+                    if ( ! termsObj.is( ':checked' ) ) {
+                        error = true;
+                        termsObj.addClass( 'error' );
+                    }
+                }
+                // Google reCaptcha Verify
+                if ( typeof ( grecaptcha ) !== 'undefined' && grecaptcha !== null ) {
+                    if( formObj.find( '.g-recaptcha' ).length > 0 ) { // For Version 2
+                        var gResponse = grecaptcha.getResponse();
+                        if ( ! ( gResponse.length ) ) {
+                            error = true;
+                            formObj.find( '.g-recaptcha' ).addClass( 'error' );
+                        }
+                    } else if( grecaptchav3 != '' && grecaptchav3 != undefined ) { // For Version 3
+                        captchaFlag = true;
+                        formObj.find( 'input[name=action],input[name=g-recaptcha-response]' ).remove();
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute( grecaptchav3, { action: 'subscribe_newsletter' } ).then( function( token ) {
+                                formObj.prepend('<input type="hidden" name="g-recaptcha-response" value="' + token + '">');
+                                formObj.prepend('<input type="hidden" name="action" value="subscribe_newsletter">');
+
+                                if( ! error ) {
+                                    submitAJAXForm( _this );
+                                }
+                            });
+                        });
+                    }
+                }
+                if( ! error && ! captchaFlag ) { // Check no errors && no google reCaptcha V3
+                    submitAJAXForm( _this );
+                }
+                return false;
+            });
+
+            function submitAJAXForm( _this ) {
+
+                var formObj     = _this.parents( 'form' ),
+                    actionURL   = formObj.attr( 'action' ),
+                    resultsObj  = formObj.find( '.form-results' ),
+                    redirectVal = formObj.find( '[name="redirect"]' ).val();
+
+                if( actionURL != '' && actionURL != undefined ) {
+                    _this.addClass( 'loading' );
+                    $.ajax({
+                        type: 'POST',
+                        url: actionURL,
+                        data: formObj.serialize(),
+                        success: function ( result ) {
+                            console.log( result );
+                            _this.removeClass( 'loading' );
+                            if( redirectVal != '' && redirectVal != undefined ) {
+                                window.location.href = redirectVal;
+                            } else {
+                                if ( typeof ( result ) !== 'undefined' && result !== null ) {
+                                    result = $.parseJSON( result );
+                                }
+                                formObj.find( 'input[type=text],input[type=email],input[type=tel],input[type=password],textarea' ).each( function () {
+                                    $( this ).val('');
+                                    $( this ).removeClass( 'error' );
+                                });
+                                formObj.find( '.g-recaptcha' ).removeClass( 'error' );
+                                formObj.find( 'input[type=checkbox],input[type=radio]' ).prop( 'checked', false );
+                                if( formObj.find( '.g-recaptcha' ).length > 0 ) {
+                                    grecaptcha.reset();
+                                }
+
+                                if (result.alert == 'success') {
+                                    formObj.find('div.newsletter-email').parent('div').fadeOut(300);
+                                    setTimeout(function(){
+                                        formObj.find('div.hasSubscriber').fadeIn(300);
+                                    }, 350)
+                                }
+                                formObj.find( 'input[name=action],input[name=g-recaptcha-response]' ).remove();
+                                resultsObj.removeClass( 'alert-success' ).removeClass( 'alert-danger' ).hide();
+                                resultsObj.addClass( 'alert-'+result.alert ).html( result.message );
+                                resultsObj.removeClass( 'd-none' ).fadeIn( 'slow' ).delay( 4000 ).fadeOut( 'slow' );
+                            }
+                        }
+                    });
+                }
+            }
+        </script>
+    </body>
+</html>
