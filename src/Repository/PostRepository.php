@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Plant;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Exception\ORMException;
@@ -47,20 +48,46 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Post[] Returns an array of Post objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Post[] Returns an array of Post objects
+     */
+    public function findBySearch($search, $category)
+    {
+        $query = $this->createQueryBuilder('post')
+            ->select('post')
+            ->leftJoin('post.plant', 'plant')
+        ;
+
+        if ($search != '')
+            $query
+                // Search from plant
+                ->where('plant.commonName LIKE :search')
+                ->orWhere('plant.scientific_class LIKE :search')
+                ->orWhere('plant.scientific_order LIKE :search')
+                ->orWhere('plant.scientific_family LIKE :search')
+                ->orWhere('plant.scientific_genus LIKE :search')
+                ->orWhere('plant.scientific_species LIKE :search')
+                // Search from post
+                ->orWhere('post.title LIKE :search')
+                ->orWhere('post.description LIKE :search')
+                ->orWhere('post.keywords LIKE :search')
+
+                ->setParameter('search', '%'.$search.'%')
+            ;
+
+        if ($category != '')
+            $query 
+                ->andWhere('JSON_CONTAINS(plant.category, \'1\', :category) = 1')
+                ->setParameter('category', '$.'.$category)
+            ;
+
+        return $query
+            ->orderBy('post.title', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult() 
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Post
 //    {

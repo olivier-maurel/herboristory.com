@@ -57,6 +57,11 @@ class Post
      */
     private $created_at;
 
+    public function __toString()
+    {
+        return $this->title;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

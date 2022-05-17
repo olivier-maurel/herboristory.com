@@ -9,8 +9,9 @@
         $.get("{{ path('app_index') }}", {q: search, p: "{{ app.request.attributes.get('_route') }}" }, function(data){
             if (data.response === true) {
                 window.location.replace("{{ path('app_index') }}?q="+search);
-            } else {
+            } else { console.log(data.response);
                 $('#listingPostsContainer').html(data.response);
+                $('<li/>').addClass('grid-sizer position-absolute').prependTo($('#listingPostsContainer'));
                 $('.header-search-icon.search-form-wrapper').removeClass('active-form');
             }
         });

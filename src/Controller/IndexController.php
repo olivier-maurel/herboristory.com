@@ -3,30 +3,45 @@
 namespace App\Controller;
 
 use App\Entity\Usr\Subscriber;
+use App\Repository\PostRepository;
 use App\Repository\Usr\SubscriberRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
 {
     /**
-     * @Route("/index", name="app_index")
+     * @Route("/", name="app_index")
      */
-    public function index(): Response
+    public function index(Request $request, PostRepository $postRepository): Response
     {
+        $posts = $postRepository->findBySearch(
+            $request->query->get('q'),
+            ($request->query->get('c')) ?: null
+        );
+
+        if ($request->isXmlHttpRequest() && ($request->query->get('p') !== null))
+            if ($request->query->get('p') === $request->get('_route'))
+                return new JsonResponse([
+                    'response' => $this->renderView('post/_listing.html.twig', [
+                        'posts' => $posts
+                    ])
+                ]);
+            else return new JsonResponse(['response' => true]);
+
         return $this->render('index/index.html.twig', [
-            'controller_name' => 'IndexController',
+            'posts' => $posts,
         ]);
     }
 
     /**
-     * @Route("/", name="app_construct")
+     * @Route("/construct", name="app_construct")
      */
-    public function construct(HttpFoundationRequest $request): Response
+    public function construct(Request $request): Response
     {
         return $this->render('_construct.html', [
             'hasSubscriber' => ($request->cookies->get('hasSubscriber')) ?: ''
@@ -36,7 +51,7 @@ class IndexController extends AbstractController
     /**
      * @Route("/subscribe", name="app_subscribe")
      */
-    public function subscribe(HttpFoundationRequest $request, SubscriberRepository $subscriberRepository): Response
+    public function subscribe(Request $request, SubscriberRepository $subscriberRepository): Response
     {
         $email = $request->request->get('email');
 

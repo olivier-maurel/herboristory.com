@@ -24,15 +24,15 @@
         
     </head>
     <body class="" data-mobile-nav-style="classic">
+
         <!-- HEADER -->
         {{ include('header/_header.html.twig') }}
 
         <!-- BODY -->
         <div class="container-fluid">
-            
-                <div id="listingPostsContainer" class="col-lg-8 m-auto py-5">
-                    {% block body %}{% endblock %}
-                </div>
+            <div class="col-lg-8 m-auto py-5">
+                {% block body %}{% endblock %}
+            </div>
         </div>
 
         <!-- FOOTER -->
@@ -47,5 +47,6 @@
         {{ include('header/header.js.twig') }}
 
         {% block javascripts %}{% endblock %}
+        
     </body>
 </html>

@@ -639,12 +639,12 @@
         formObj.find( 'input[type=text]' ).each( function ( index ) {
             var _this       = $( this ),
                 searchVal   = _this.val();
-            if ( searchVal === null || searchVal === '' ) {
-                formObj.find( 'input:eq(' + index + ')' ).addClass( 'search-error' );
-                error = false;
-            } else {
+            // if ( searchVal === null || searchVal === '' ) {
+            //     formObj.find( 'input:eq(' + index + ')' ).addClass( 'search-error' );
+            //     error = false;
+            // } else {
                 formObj.find( 'input:eq(' + index + ')' ).removeClass( 'search-error' );
-            }
+            // }
         });
         return error;
     });

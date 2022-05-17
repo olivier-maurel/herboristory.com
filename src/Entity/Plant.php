@@ -59,9 +59,19 @@ class Plant
      */
     private $posts;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $category = [];
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->commonName;
     }
 
     public function getId(): ?int
@@ -179,6 +189,18 @@ class Plant
                 $post->setPlant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?array
+    {
+        return $this->category;
+    }
+
+    public function setCategory(array $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
