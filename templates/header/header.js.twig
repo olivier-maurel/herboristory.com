@@ -2,10 +2,15 @@
 
     $(document.body).on('submit', '#searchForm', function(e){
 
-        let search = $(this).find('#searchFormInput').val();
+        var parameters  = getParameters();
+        var search = $(this).find('#searchFormInput').val();
         
-        window.history.pushState( {} , '', '?q='+search );
         
+        // Generate url
+        window.history.pushState( {} , '', setParameters(
+            addParameter(parameters, ['q', search])
+        ));
+    
         $.get("{{ path('app_index') }}", {q: search, p: "{{ app.request.attributes.get('_route') }}" }, function(data){
             if (data.response === true) {
                 window.location.replace("{{ path('app_index') }}?q="+search);

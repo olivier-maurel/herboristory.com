@@ -9,10 +9,10 @@
                 <div class="col-md-12 text-center">
                     <!-- start filter navigation -->
                     <ul class="grid-filter nav nav-tabs justify-content-center border-0 text-uppercase font-weight-500 alt-font padding-6-rem-bottom md-padding-4-half-rem-bottom sm-padding-2-rem-bottom">
-                        <li class="nav active"><a data-filter="" href="#">Tous</a></li>
-                        <li class="nav"><a data-filter="med" href="#">Medicinale</a></li>
-                        <li class="nav"><a data-filter="com" href="#">Comestible</a></li>
-                        <li class="nav"><a data-filter="tox">Toxique</a></li>
+                        <li class="nav pointer active"><a data-filter="">Tous</a></li>
+                        <li class="nav pointer"><a data-filter="med" >Medicinale</a></li>
+                        <li class="nav pointer"><a data-filter="com">Comestible</a></li>
+                        <li class="nav pointer"><a data-filter="tox">Toxique</a></li>
                     </ul>
                     <!-- end filter navigation -->
                 </div>
@@ -38,78 +38,35 @@
 
 {% block javascripts %}
 <script>
-    function getParameters()
-    {
-        var url    = window.location.search.substring(1);
-        var varUrl = url.split('&');
-        var parameter = [];
 
-        for (var i = 0; i < varUrl.length; i++)
-        {
-            let item = varUrl[i].split('=');
-            parameter.push({[item[0]]: item[1]});
-        }
+    (function($) {
 
-        return parameter[0];
-    }
+        $(document.body).on('click', '.grid-filter li.nav', function(){
 
-    $(document.body).on('click', '.grid-filter li.nav', function(){
+            var parameters  = getParameters();
+            var filter      = $(this).children('a').data('filter');
+            
+            // Generate url
+            window.history.pushState( {} , '', setParameters(
+                addParameter(parameters, ['c', filter])
+            ));
 
-        var filter      = $(this).children('a').data('filter');
-        var parameters  = getParameters();
-        var urlParams   = '?';
+            // Menu navbar
+            $(this).parents( 'section' ).find( '.grid-filter > li' ).removeClass( 'active' );
+            $(this).addClass('active');
 
-        if (parameters['q'] !== undefined)
-            urlParams = urlParams + 'q=' + parameters['q'] + '&';
+            $('#listingPostsContainer').fadeOut('fast');
 
-        parentSectionObj= $(this).parents( 'section' );
-        parentSectionObj.find( '.grid-filter > li' ).removeClass( 'active' );
-        $(this).addClass('active');
-
-        window.history.pushState( {} , '', urlParams + 'c='+filter );
-
-        $('#listingPostsContainer').fadeOut('fast');
-        
-        $.get("{{ path('app_index') }}", {p: "{{ app.request.attributes.get('_route') }}", q: parameters['q'], c: filter }, function(data){
+            // AJAX request
+            $.get("{{ path('app_index') }}", {p: "{{ app.request.attributes.get('_route') }}", q: parameters['q'], c: filter }, function(data){
                 $('#listingPostsContainer').html(data.response).fadeIn('fast');
-
                 $('<li/>').addClass('grid-sizer position-absolute').prependTo($('#listingPostsContainer'));
                 $('.header-search-icon.search-form-wrapper').removeClass('active-form');
-        });
+            });
 
-    })
-    // function setBlogWrapper() {
-    //     var isMobile = false;
-    //     var isotopeObjs = [];
+        })
 
-    //     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    //         isMobile = true;
-    //     }
+    }(jQuery));
 
-        // $( '.portfolio-wrapper' ).each( function() {
-        //     var _this = $( this );
-        //     if( ! _this.find( '.wow' ).length > 0 ) {
-        //         _this.find( '.grid-item' ).css( 'visibility', 'hidden' );
-        //     }
-        //     _this.imagesLoaded( function () {
-        //         if( ! _this.find( '.wow' ).length > 0 ) {
-        //             _this.find( '.grid-item' ).css( 'visibility', '' );
-        //         } else if( ! isMobile ) {
-        //             _this.find( '.grid-item' ).css( 'visibility', 'hidden' );
-        //         }
-        //         _this.removeClass( 'grid-loading' );
-        //         _this.isotope({
-        //             layoutMode: 'boxed',
-        //             itemSelector: '.grid-item',
-        //             percentPosition: true,
-        //             stagger: 0,
-        //             masonry: {
-        //                 columnWidth: '.grid-sizer',
-        //             }
-        //         });
-        //         isotopeObjs.push( _this );
-        //     });
-    //     });
-    // }
 </script>
 {% endblock %}
