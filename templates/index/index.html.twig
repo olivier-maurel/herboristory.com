@@ -55,11 +55,13 @@
             $(this).parents( 'section' ).find( '.grid-filter > li' ).removeClass( 'active' );
             $(this).addClass('active');
 
-            $('#listingPostsContainer').fadeOut('fast');
+            // $('#listingPostsContainer').fadeOut('fast');
+            var spinner = setSpinner($('#listingPostsContainer'));
 
             // AJAX request
             $.get("{{ path('app_index') }}", {p: "{{ app.request.attributes.get('_route') }}", q: parameters['q'], c: filter }, function(data){
-                $('#listingPostsContainer').html(data.response).fadeIn('fast');
+                $('#listingPostsContainer').html(data.response);///// TODO: ERROR HERE
+                spinner.fadeOut('slow');
                 $('<li/>').addClass('grid-sizer position-absolute').prependTo($('#listingPostsContainer'));
                 $('.header-search-icon.search-form-wrapper').removeClass('active-form');
             });

@@ -141,3 +141,8 @@ a.disabled{
         font-size: 3.8rem;
     }
 }
+
+.vignette-image {
+    height: 220px !important;
+    object-fit: cover !important;
+}

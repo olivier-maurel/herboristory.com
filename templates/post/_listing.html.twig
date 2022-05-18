@@ -1,15 +1,23 @@
 
 {% for post in posts %}
-    <li class="grid-item branding logos wow animate__fadeIn" data-wow-delay="0.6s">
+    <!-- <li class="grid-item branding logos wow animate__fadeIn" data-wow-delay="0.6s">
         <a href="{{ path('app_post_show', {id:post.id}) }}">
             <div class="portfolio-box">
                 <div class="portfolio-image">
-                    <img src="https://via.placeholder.com/800x650" alt="" data-no-retina="">
+                    <img src="{{ post.image ?: 'https://via.placeholder.com/800x650' }}" class="vignette-image" alt="" data-no-retina="">
+                    <div class="position-absolute bottom-0 w-100 text-center" style="background-color: #e5fbe690;">
+                        <span class="h6 text-black text-uppercase" style="letter-spacing: 2px;">{{ post.plant.commonName }}</span>
+                    </div>
                     <div class="portfolio-hover justify-content-end d-flex flex-column">
-                        <div class="bg-white padding-30px-lr padding-15px-tb w-100 d-flex align-items-center align-self-end text-start border-radius-3px xl-padding-20px-lr">
+                        <div class="padding-10px-lr padding-10px-tb w-100 d-flex align-items-center align-self-end text-start">
                             <div class="me-auto">
-                                <div class="text-medium-gray alt-font margin-5px-top text-small text-uppercase">Photography</div>
-                                <div class="font-weight-500 alt-font text-extra-dark-gray text-uppercase">Harddot Stone</div>
+                                <div class="text-medium-gray alt-font margin-5px-top text-small text-uppercase">{{ post.title }}</div>
+                                <div class="font-weight-500 alt-font text-light text-shadow text-uppercase h2">{{ post.plant.commonName }}</div>
+                                <div>
+                                    {% for key, category in post.plant.category %}
+                                        {{ key }}
+                                    {% endfor %}
+                                </div>
                             </div>
                             <div class="ms-auto"><i class="line-icon-Arrow-OutRight icon-extra-medium text-extra-dark-gray  position-relative top-3px"></i></div> 
                         </div>
@@ -17,5 +25,12 @@
                 </div>
             </div>
         </a>
-    </li>
+    </li> -->
+    <div class="col-lg-8 m-auto my-1 flex-center justify-content-between p-2">
+        <div>
+            <img src="{{ post.image }}" style="height: 60px; width: 60px; object-fit: cover; border-radius: 50%;">
+        </div>
+        <div class="text-start col px-3 font-weight-500 h6">{{ post.plant.commonName }}</div>
+        <div></div>
+    </div>
 {% endfor %}

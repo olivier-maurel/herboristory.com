@@ -38,3 +38,15 @@ function addParameter(parameters, item)
 
     return parameters;
 };
+
+function setSpinner(target)
+{
+    var container = $('<div/>').addClass('position-absolute w-100 h-100 top-0 start-0 bg-white').hide().appendTo(target).fadeIn('fast');
+    var spinner = $('<div/>').addClass('sk-circle').appendTo(container);
+    
+    for (let i = 1; i <= 12; i++) {
+        $('<div/>').addClass('sk-circle'+i+' sk-child').appendTo(spinner);
+    }
+
+    return container;
+}
