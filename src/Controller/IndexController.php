@@ -21,20 +21,25 @@ class IndexController extends AbstractController
     {
         $posts = $postRepository->findBySearch(
             $request->query->get('q'),
-            ($request->query->get('c')) ?: null
+            $request->query->get('c')
         );
 
-        if ($request->isXmlHttpRequest() && ($request->query->get('p') !== null))
+        $list = ($request->query->get('l') == 'box' || $request->query->get('l') == 'row') ? $request->query->get('l') : 'row';
+
+        if ($request->isXmlHttpRequest() && ($request->query->get('p') !== null)) {
+            dump($request->query, $list);
             if ($request->query->get('p') === $request->get('_route'))
                 return new JsonResponse([
-                    'response' => $this->renderView('post/_listing.html.twig', [
+                    'response' => $this->renderView('post/_listing_'.$list.'.html.twig', [
                         'posts' => $posts
                     ])
                 ]);
             else return new JsonResponse(['response' => true]);
+        }
 
         return $this->render('index/index.html.twig', [
             'posts' => $posts,
+            'list' => $list
         ]);
     }
 

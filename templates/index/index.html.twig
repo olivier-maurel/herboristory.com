@@ -6,13 +6,26 @@
     <section class="padding-four-lr pt-0 lg-padding-two-lr xs-no-padding-lr">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center">
+                <div class="col-lg-8 m-auto text-center flex-center justify-content-between padding-6-rem-bottom md-padding-4-half-rem-bottom sm-padding-2-rem-bottom">
                     <!-- start filter navigation -->
-                    <ul class="grid-filter nav nav-tabs justify-content-center border-0 text-uppercase font-weight-500 alt-font padding-6-rem-bottom md-padding-4-half-rem-bottom sm-padding-2-rem-bottom">
+                    <div></div>
+                    <ul data-type="c" class="grid-filter nav nav-tabs justify-content-center border-0 text-uppercase font-weight-500 alt-font">
                         <li class="nav pointer active"><a data-filter="">Tous</a></li>
                         <li class="nav pointer"><a data-filter="med" >Medicinale</a></li>
                         <li class="nav pointer"><a data-filter="com">Comestible</a></li>
                         <li class="nav pointer"><a data-filter="tox">Toxique</a></li>
+                    </ul>
+                    <ul data-type="l" class="grid-filter" style="width: 50px;">
+                        <li class="nav fluid px-2 {{ (list == 'box') ? 'd-none' }}">
+                            <a data-filter="box" class="btn btn-rounded btn-light pointer border-0">
+                                <i class="fa fa-border-all text-muted"></i>
+                            </a>
+                        </li>
+                        <li class="nav fluid px-2 {{ (list == 'row') ? 'd-none' }}">
+                            <a data-filter="row" class="btn btn-rounded btn-light pointer border-0">
+                                <i class="fa fa-list text-muted"></i>
+                            </a>
+                        </li>
                     </ul>
                     <!-- end filter navigation -->
                 </div>
@@ -21,11 +34,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 filter-content">
-                    <ul id="listingPostsContainer" class="portfolio-boxed portfolio-wrapper grid grid-4col xl-grid-4col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-large text-center row">
+                    <ul id="listingPostsContainer" class="portfolio-boxed portfolio-wrapper grid grid-4col xl-grid-4col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-large text-center position-relative row">
                         <li class="grid-sizer position-absolute"></li>
                         <!-- start portfolio item -->
-                        {{ include('post/_listing.html.twig', {
-                            posts: posts
+                        {{ include('post/_listing_'~ list ~'.html.twig', {
+                            posts: posts,
                         }) }}
                         <!-- end portfolio item -->
                     </ul>
@@ -43,28 +56,19 @@
 
         $(document.body).on('click', '.grid-filter li.nav', function(){
 
-            var parameters  = getParameters();
             var filter      = $(this).children('a').data('filter');
+            var type        = $(this).parent().data('type');
             
-            // Generate url
-            window.history.pushState( {} , '', setParameters(
-                addParameter(parameters, ['c', filter])
-            ));
-
+            if (type === 'c') {
+                $(this).parents( 'section' ).find( '.grid-filter > li' ).removeClass( 'active' );
+                $(this).addClass('active');
+            } else if (type === 'l') {
+                $(this).siblings('li').removeClass('d-none');
+                $(this).addClass('d-none')
+            }
             // Menu navbar
-            $(this).parents( 'section' ).find( '.grid-filter > li' ).removeClass( 'active' );
-            $(this).addClass('active');
-
-            // $('#listingPostsContainer').fadeOut('fast');
-            var spinner = setSpinner($('#listingPostsContainer'));
-
-            // AJAX request
-            $.get("{{ path('app_index') }}", {p: "{{ app.request.attributes.get('_route') }}", q: parameters['q'], c: filter }, function(data){
-                $('#listingPostsContainer').html(data.response);///// TODO: ERROR HERE
-                spinner.fadeOut('slow');
-                $('<li/>').addClass('grid-sizer position-absolute').prependTo($('#listingPostsContainer'));
-                $('.header-search-icon.search-form-wrapper').removeClass('active-form');
-            });
+            
+            setSearch(type, filter);
 
         })
 

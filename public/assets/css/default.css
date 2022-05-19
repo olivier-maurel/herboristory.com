@@ -146,3 +146,7 @@ a.disabled{
     height: 220px !important;
     object-fit: cover !important;
 }
+
+.fluid {
+    transition: .3s;
+}

@@ -1,4 +1,4 @@
-'use strict';
+<script> 'use strict';
 
 function getParameters()
 {
@@ -50,3 +50,30 @@ function setSpinner(target)
 
     return container;
 }
+
+function setSearch(type, filter)
+{
+    var parameters  = getParameters();
+    addParameter(parameters, [type, filter])
+    
+    // Generate url
+    window.history.pushState( {} , '', setParameters(parameters));
+
+    // $('#listingPostsContainer').fadeOut('fast');
+    var spinner = setSpinner($('#listingPostsContainer'));
+
+    $.get("{{ path('app_index') }}", {
+            p: "{{ app.request.attributes.get('_route') }}",
+            q: parameters['q'], 
+            c: parameters['c'], 
+            l: parameters['l'] 
+        }, function(data){
+            $('#listingPostsContainer').html(data.response);///// TODO: ERROR HERE
+            spinner.fadeOut('slow');
+            $('<li/>').addClass('grid-sizer position-absolute').prependTo($('#listingPostsContainer'));
+            $('.header-search-icon.search-form-wrapper').removeClass('active-form');
+        }
+    );
+}
+
+</script>
