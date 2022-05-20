@@ -82,8 +82,7 @@ class PostRepository extends ServiceEntityRepository
             ;
 
         return $query
-            ->orderBy('post.title', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('post.id', 'ASC')
             ->getQuery()
             ->getResult() 
         ;

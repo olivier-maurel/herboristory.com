@@ -1,19 +1,28 @@
 <script> 'use strict';
 
+/**
+ * Retourne un tableau des parametres de l'URL actuel
+ * @return string parameters
+ */
 function getParameters()
 {
     var url    = window.location.search.substring(1);
     var varUrl = url.split('&');
-    var parameter = {};
+    var parameters = {};
 
     $.each(varUrl, function(k,v){
         let item = v.split('=');
-        parameter[item[0]] = item[1];
+        parameters[item[0]] = item[1];
     });
 
-    return parameter;
+    return parameters;
 }
 
+/**
+ * Retourne les paramètres destiné à une URL
+ * @param array parameters
+ * @return string urlParams
+ */
 function setParameters(parameters)
 {
     if (Object.keys(parameters).length == 0)
@@ -29,6 +38,12 @@ function setParameters(parameters)
     return urlParams.slice(0, -1);
 }
 
+/**
+ * Ajoute un paramètre
+ * @param array parameters
+ * @param array item
+ * @return array parameters
+ */
 function addParameter(parameters, item)
 {
     if (item[1] != "")
@@ -39,11 +54,24 @@ function addParameter(parameters, item)
     return parameters;
 };
 
-function setSpinner(target)
+/**
+ * Ajoute une animation de chargement AJAX
+ * @param object target
+ * @return object container
+ */
+function setSpinner(target, margin = true)
 {
-    var container = $('<div/>').addClass('position-absolute w-100 h-100 top-0 start-0 bg-white').hide().appendTo(target).fadeIn('fast');
+    var parent = target.parent();
+
+    if (parent.children('.spinner-container').length > 0)
+        return parent.find('.spinner-container').fadeIn('fast');
+
+    var container = $('<div/>').addClass('spinner-container position-absolute w-100 h-100 top-0 start-0 bg-white').hide().appendTo(parent).fadeIn('fast');
     var spinner = $('<div/>').addClass('sk-circle').appendTo(container);
     
+    if (margin === false)
+        spinner.css({'margin': 'auto'});
+
     for (let i = 1; i <= 12; i++) {
         $('<div/>').addClass('sk-circle'+i+' sk-child').appendTo(spinner);
     }
@@ -51,29 +79,89 @@ function setSpinner(target)
     return container;
 }
 
+/**
+ * Trie les posts en ajoutant un filtre
+ * @param string type 
+ * @param string filter
+ * @return null 
+ */
 function setSearch(type, filter)
 {
-    var parameters  = getParameters();
-    addParameter(parameters, [type, filter])
+    var parameters    = addParameter(getParameters(), [type, filter]);
+    var urlParameters = setParameters(parameters);
     
-    // Generate url
-    window.history.pushState( {} , '', setParameters(parameters));
+    // Redirige l'utilisateur n'est pas sur la page "/search"
+    if ("{{ app.request.attributes.get('_route') }}" !== 'app_search')
+        window.location.replace("{{ path('app_search') }}" + urlParameters);
 
-    // $('#listingPostsContainer').fadeOut('fast');
+    // Génère l'url
+    window.history.pushState( {} , '', urlParameters);
+
+    // Génère l'animation de chargement
+    $('#listingPostsContainer').fadeOut(100);
     var spinner = setSpinner($('#listingPostsContainer'));
 
-    $.get("{{ path('app_index') }}", {
-            p: "{{ app.request.attributes.get('_route') }}",
-            q: parameters['q'], 
-            c: parameters['c'], 
-            l: parameters['l'] 
-        }, function(data){
+    var queryParameters = {
+        r: "{{ app.request.attributes.get('_route') }}",
+        q: parameters['q'], 
+        c: parameters['c'], 
+        l: parameters['l'] 
+    };
+
+    $.get("{{ path('app_search') }}", queryParameters, 
+        function(data) {
+            if (data.response === true)
+                window.location.replace("{{ path('app_search') }}" + urlParameters);
+
             $('#listingPostsContainer').html(data.response);///// TODO: ERROR HERE
+            $('#listingPostsContainer').fadeIn('fast');///// TODO: ERROR HERE
             spinner.fadeOut('slow');
             $('<li/>').addClass('grid-sizer position-absolute').prependTo($('#listingPostsContainer'));
             $('.header-search-icon.search-form-wrapper').removeClass('active-form');
         }
     );
+}
+
+function setPagination(page)
+{
+    var used = false, locked = false;
+
+    $(window).scroll(function () {
+        //I shortened conditions (for a boolean, "!used" is same as "used == false")
+        if ($(window).scrollTop() >= $(document).height() - $(window).height() - 50 && used === false && locked === false) {
+            //lock function before the call
+            var spinner = setSpinner($('#loaderPaginator'), false);
+            var parameters = getParameters();
+            // parameters = addParameter(parameters, ['p', ((parameters['p']) ? parseInt(parameters['p']) + 1 : 2)])
+            var queryParameters = {
+                r: "{{ app.request.attributes.get('_route') }}",
+                q: parameters['q'], 
+                c: parameters['c'], 
+                l: parameters['l'],
+                p: page = page + 1
+            };
+
+            window.history.pushState( {} , '', setParameters(parameters));
+            console.log('OK');
+            locked = true;
+            $.get("{{ path('app_search') }}", queryParameters, 
+                function(data) {
+                    $('#listingPostsContainer').append(data.response);
+                    used = true;
+                    locked = false;
+                    spinner.parent().fadeOut('slow');
+                    setTimeout(function(){
+                        spinner.parent().remove();
+                    }, 100)
+                    if (data.limit !== true)
+                        setPagination(page);
+                }
+            ).fail(function(){
+                console.log('request has failed');
+                locked = false;
+            });
+        }
+    });
 }
 
 </script>

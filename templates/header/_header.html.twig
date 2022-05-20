@@ -9,9 +9,9 @@
                         <!-- start search input -->
                         <div class="form-wrapper">
                             <button title="Close" type="button" class="search-close alt-font">×</button>
-                            <form id="searchForm" role="search" method="GET" class="search-form text-start">
+                            <form id="searchForm" role="search" method="GET" class="search-form search-form-ajax text-start">
                                 <div class="search-form-box">
-                                    <input class="search-input alt-font" id="searchFormInput" placeholder="Que recherchez-vous ?" name="q" value="" type="text" autocomplete="off">
+                                    <input class="search-input alt-font" id="searchFormInput" placeholder="Que recherchez-vous ?" name="q" value="{{ app.request.query.get('q') }}" type="text" autocomplete="off">
                                     <button type="submit" class="search-button">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>

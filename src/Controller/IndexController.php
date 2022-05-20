@@ -11,33 +11,52 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface; 
 
 class IndexController extends AbstractController
 {
     /**
      * @Route("/", name="app_index")
      */
-    public function index(Request $request, PostRepository $postRepository): Response
+    public function index(Request $request): Response
     {
-        $posts = $postRepository->findBySearch(
+        return $this->render('index/index.html.twig', [
+            
+        ]);
+    }
+
+    /**
+     * @Route("/search", name="app_search")
+     */
+    public function search(Request $request, PostRepository $postRepository, PaginatorInterface $paginator): Response
+    {
+        $data = $postRepository->findBySearch(
             $request->query->get('q'),
             $request->query->get('c')
         );
 
+        $posts = $paginator->paginate(
+            $data, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('p', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
+
         $list = ($request->query->get('l') == 'box' || $request->query->get('l') == 'row') ? $request->query->get('l') : 'row';
 
-        if ($request->isXmlHttpRequest() && ($request->query->get('p') !== null)) {
-            dump($request->query, $list);
-            if ($request->query->get('p') === $request->get('_route'))
+        if ($request->isXmlHttpRequest() && ($request->query->get('r') !== null)) {
+            if ($request->query->get('r') === $request->get('_route'))
                 return new JsonResponse([
                     'response' => $this->renderView('post/_listing_'.$list.'.html.twig', [
                         'posts' => $posts
-                    ])
+                    ]),
+                    'limit' => (count($posts) < 1) ?: false
                 ]);
-            else return new JsonResponse(['response' => true]);
+            else return new JsonResponse([
+                'response' => true
+            ]);
         }
 
-        return $this->render('index/index.html.twig', [
+        return $this->render('index/search.html.twig', [
             'posts' => $posts,
             'list' => $list
         ]);

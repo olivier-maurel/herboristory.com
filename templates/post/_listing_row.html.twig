@@ -1,10 +1,10 @@
 
-{% for post in posts %}
+{% for key,post in posts %}
     <div class="col-lg-8 m-auto my-1 flex-center justify-content-between p-2">
         <div>
             <img src="{{ post.image }}" style="height: 60px; width: 60px; object-fit: cover; border-radius: 50%;">
         </div>
-        <div class="text-start col px-3 font-weight-500 h6">{{ post.plant.commonName }}</div>
+        <div class="text-start col px-3 font-weight-500 h6">({{post.id}}) {{ post.plant.commonName }}</div>
         <div>
             {% for key, category in post.plant.category %}
                 {{ key }}
@@ -12,3 +12,6 @@
         </div>
     </div>
 {% endfor %}
+<div class="col-lg-8 m-auto my-1 p-2 flex-center position-relative">
+    <div id="loaderPaginator"></div>
+</div>

@@ -1,8 +1,10 @@
 <script>
 
-    $(document.body).on('submit', '#searchForm', function(e){
+    $(document.body).on('submit', '.search-form', function(e){
             
-        setSearch('q', $(this).find('#searchFormInput').val());
+        $('.search-input').val($(this).find('.search-input').val());
+        setSearch('q', $(this).find('.search-input').val());
+        $(document.body).removeClass('show-search-popup');
         e.preventDefault();
 
     })
