@@ -38,7 +38,7 @@ class IndexController extends AbstractController
         $posts = $paginator->paginate(
             $data, // Requête contenant les données à paginer (ici nos articles)
             $request->query->getInt('p', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            10 // Nombre de résultats par page
+            12 // Nombre de résultats par page
         );
 
         $list = ($request->query->get('l') == 'box' || $request->query->get('l') == 'row') ? $request->query->get('l') : 'row';

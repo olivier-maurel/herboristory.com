@@ -3,7 +3,7 @@
 {% block title %}Recherche{% endblock %}
 
 {% block body %}
-    <section class="padding-four-lr pt-0 lg-padding-two-lr xs-no-padding-lr">
+    <section class="padding-four-lr pt-0 lg-padding-two-lr xs-no-padding-lr pb-5">
         <div class="container">
             <div class="row">
                 <div class="row m-auto text-center flex-center justify-content-between padding-6-rem-bottom md-padding-4-half-rem-bottom sm-padding-2-rem-bottom">
@@ -43,7 +43,7 @@
         <div class="container-fluid">
             <div class="row position-relative">
                 <div class="col-12 filter-content position-relative">
-                    <ul id="listingPostsContainer" style="display: none;" class="portfolio-boxed portfolio-wrapper grid grid-4col xl-grid-4col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-large text-center position-relative row">
+                    <ul id="listingPostsContainer" style="display: none;" class="list-unstyled text-center position-relative row">
                         <li class="grid-sizer position-absolute"></li>
                         <!-- start portfolio item -->
                         {{ include('post/_listing_'~ list ~'.html.twig', {
@@ -55,7 +55,9 @@
             </div>
         </div>
     </section>
-    
+    <section>
+        
+    </section>
 {% endblock %}
 
 {% block javascripts %}

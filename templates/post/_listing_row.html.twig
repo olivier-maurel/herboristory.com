@@ -1,16 +1,18 @@
 
 {% for key,post in posts %}
-    <div class="col-lg-8 m-auto my-1 flex-center justify-content-between p-2">
-        <div>
-            <img src="{{ post.image }}" style="height: 60px; width: 60px; object-fit: cover; border-radius: 50%;">
-        </div>
-        <div class="text-start col px-3 font-weight-500 h6">({{post.id}}) {{ post.plant.commonName }}</div>
-        <div>
-            {% for key, category in post.plant.category %}
-                {{ key }}
-            {% endfor %}
-        </div>
-    </div>
+    <li class="col-lg-10 m-auto my-1 flex-center justify-content-between p-2 bg-beige round overflow-hidden">
+        <a href="{{ path('app_post_show', {slug:post.slug}) }}" class="bg-light flex-center justify-content-between w-100 round">
+            <div>
+                <img src="{{ post.image }}" style="height: 60px; width: 120px; object-fit: cover; border-radius: 100px 0 0 100px;">
+            </div>
+            <div class="text-start col px-3 font-weight-500 h6">({{post.id}}) {{ post.plant.commonName }}</div>
+            <div class="d-flex">
+                {% for key, category in post.plant.category %}
+                    <i class="fa {{ key|getIcon }} text-white round type-icon" title="{{ key|getAlt }}"></i>
+                {% endfor %}
+            </div>
+        </a>
+    </li>
 {% endfor %}
 <div class="col-lg-8 m-auto my-1 p-2 flex-center position-relative">
     <div id="loaderPaginator"></div>
