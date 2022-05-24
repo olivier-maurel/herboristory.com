@@ -32,46 +32,96 @@
                     <i class="fa {{ key|getIcon }} text-white round type-icon-lg mx-1" title="{{ key|getAlt }}"></i>
                 {% endfor %}
             </div>
-            <div class="card col-md-4">
-                <div class="card-body">
-                    <table class="w-100">
-                        <tbody>
-                            <tr>
-                                <td class="text-muted small text-end">Nom commun : </td>
-                                <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.commonName }}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted small text-end">Classe : </td>
-                                <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificClass }}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted small text-end">Ordre : </td>
-                                <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificOrder }}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted small text-end">Famille : </td>
-                                <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificFamily }}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted small text-end">Genre : </td>
-                                <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificGenus }}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted small text-end">Espèce : </td>
-                                <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificSpecies }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        </section>
+
+        <div class="row flex-row-reverse py-4">
+            <div class="col-lg-5">
+                <section class="p-0 position-sticky" style="top: .4rem;">
+                    <div class="card">
+                        <div class="card-head pt-4">
+                            <span class="h5 alt-font small text-center d-block mb-0">Sommaire</span>
+                            <ul class="grid-filter nav nav-tabs justify-content-center border-0 text-uppercase font-weight-500 alt-font border-bottom pb-3">
+                                {% if post.pageMedicinal is not null %}
+                                    <li class="nav"><a href="#pageMedicinal" class="btn btn-sm">Médicinale</a></li>
+                                {% endif %}
+                    
+                                {% if post.pageAlimental is not null %}
+                                    <li class="nav"><a href="#pageAlimental" class="btn btn-sm">Comestible</a></li>
+                                {% endif %}
+                    
+                                {% if post.pageAgricol is not null %}
+                                    <li class="nav"><a href="#pageAgricol" class="btn btn-sm">Agricole</a></li>
+                                {% endif %}
+                    
+                                {% if post.pageIndustrial is not null %}
+                                    <li class="nav"><a href="#pageIndustrial" class="btn btn-sm">Artisanale</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <table class="w-100 mt-4">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-muted small text-end">Nom commun : </td>
+                                        <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.commonName }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted small text-end">Classe : </td>
+                                        <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificClass }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted small text-end">Ordre : </td>
+                                        <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificOrder }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted small text-end">Famille : </td>
+                                        <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificFamily }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted small text-end">Genre : </td>
+                                        <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificGenus }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted small text-end">Espèce : </td>
+                                        <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificSpecies }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
             </div>
-        </section>
+            
+            <div class="col-lg-7">
+                {% if post.pageMedicinal is not null %}
+                    <section id="pageMedicinal" class="py-3">
+                        <h2>Médicinale</h2>
+                        <p>{{ post.pageMedicinal }}</p>
+                    </section>
+                {% endif %}
+    
+                {% if post.pageAlimental is not null %}
+                    <section id="pageAlimental" class="py-3">
+                        <h2>Comestible</h2>
+                        <p>{{ post.pageAlimental }}</p>
+                    </section>
+                {% endif %}
+    
+                {% if post.pageAgricol is not null %}
+                    <section id="pageAgricol" class="py-3">
+                        <h2>Agricole</h2>
+                        <p>{{ post.pageAgricol }}</p>
+                    </section>
+                {% endif %}
+    
+                {% if post.pageIndustrial is not null %}
+                    <section id="pageIndustrial" class="py-3">
+                        <h2>Artisanale</h2>
+                        <p>{{ post.pageIndustrial }}</p>
+                    </section>
+                {% endif %}
+            </div>
+        </div>
 
-        <section>
-
-        </section>
-
-        <section>
-
-        </section>
     </article>
 {% endblock %}

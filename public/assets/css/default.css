@@ -7,7 +7,9 @@
 .bg-w-trans {
     background-color: #ffffff03;
 }
-
+html {
+    scroll-behavior: smooth !important;
+}
 .full-body {
     height: 100%;
     min-height: 100vh;
