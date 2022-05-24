@@ -170,9 +170,21 @@ a.disabled{
     border: 2px solid #fff2;
     box-shadow: 0px 0px 3px #0003;
 }
+.type-icon-lg {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .88rem;
+    border: 2px solid #fff2;
+    box-shadow: 0px 0px 3px #0003;
+    font-size: 1.9rem;
+}
 .middle-top {
     position: absolute;
-    top: calc(90% - 100%);
+    top: 0;
+    transform: translateY(-50%);
 }
 .shadow-md {
     box-shadow: 0 .125rem .79rem rgba(0,0,0,.535) !important;

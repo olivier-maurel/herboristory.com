@@ -3,48 +3,75 @@
 {% block title %}Post{% endblock %}
 
 {% block body %}
-    <h1>Post</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ post.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ post.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ post.content }}</td>
-            </tr>
-            <tr>
-                <th>Keywords</th>
-                <td>{{ post.keywords ? post.keywords|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ post.description }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ post.image }}</td>
-            </tr>
-            <tr>
-                <th>Modified_at</th>
-                <td>{{ post.modifiedAt ? post.modifiedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_post_index') }}">back to list</a>
+    <!-- <a href="{{ path('app_post_index') }}">back to list</a>
 
     <a href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>
 
-    {{ include('post/_delete_form.html.twig') }}
+    {{ include('post/_delete_form.html.twig') }} -->
+
+        <a href="{{ setReferer(app.request) }}" class="btn btn-danger">Retour</a>
+    <article class="py-5">
+
+
+        <section class="position-relative py-0">
+            {% if ((post.plant.category|isToxic) == true) %}
+                <div class="col-12 alert alert-danger alert-dismissible fade in show" role="alert">
+                    <!-- <button type="button" class="btn-close line-height-unset" data-bs-dismiss="alert" aria-label="Close"></button> -->
+                    <strong>Danger!</strong> Cette plante présente des effets toxiques ou néfaste pour la santé. Soyez vigilant...
+                    <p class="m-0">Cette plante présente des similarités avec :</p>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#"></a>
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+            <img src="{{ post.image ?: 'https://via.placeholder.com/800x650' }}" class="vignette-image w-100" style="height: 450px !important;" alt="Photo principale - {{ post.plant.commonName }}">
+            <div class="w-100 d-flex justify-content-end middle-top px-2">
+                {% for key, category in post.plant.category %}
+                    <i class="fa {{ key|getIcon }} text-white round type-icon-lg mx-1" title="{{ key|getAlt }}"></i>
+                {% endfor %}
+            </div>
+            <div class="card col-md-4">
+                <div class="card-body">
+                    <table class="w-100">
+                        <tbody>
+                            <tr>
+                                <td class="text-muted small text-end">Nom commun : </td>
+                                <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.commonName }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted small text-end">Classe : </td>
+                                <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificClass }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted small text-end">Ordre : </td>
+                                <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificOrder }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted small text-end">Famille : </td>
+                                <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificFamily }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted small text-end">Genre : </td>
+                                <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificGenus }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted small text-end">Espèce : </td>
+                                <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificSpecies }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section>
+
+        </section>
+
+        <section>
+
+        </section>
+    </article>
 {% endblock %}

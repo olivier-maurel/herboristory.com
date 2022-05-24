@@ -55,7 +55,7 @@ class PostController extends AbstractController
     /**
      * @Route("/{slug}", name="app_post_show", methods={"GET"})
      */
-    public function show(string $slug): Response
+    public function show(string $slug, Request $request): Response
     {
         $em = $this->getDoctrine()->getManager();
         

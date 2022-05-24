@@ -11,6 +11,7 @@ class PlantExtension extends AbstractExtension
         return [
             new TwigFilter('getIcon', [$this, 'getIcon']),
             new TwigFilter('getAlt', [$this, 'getAlt']),
+            new TwigFilter('isToxic', [$this, 'isToxic']),
         ];
     }
 
@@ -50,5 +51,10 @@ class PlantExtension extends AbstractExtension
         }
 
         return $alt;
+    }
+
+    public function isToxic(array $categories)
+    {
+        return key_exists('tox', $categories);
     }
 }
