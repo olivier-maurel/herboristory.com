@@ -17,13 +17,26 @@
             {% if ((post.plant.category|isToxic) == true) %}
                 <div class="col-12 alert alert-danger alert-dismissible fade in show" role="alert">
                     <!-- <button type="button" class="btn-close line-height-unset" data-bs-dismiss="alert" aria-label="Close"></button> -->
-                    <strong>Danger!</strong> Cette plante présente des effets toxiques ou néfaste pour la santé. Soyez vigilant...
-                    <p class="m-0">Cette plante présente des similarités avec :</p>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#"></a>
-                        </li>
-                    </ul>
+                    <strong class="d-block text-center text-danger h3">Danger!</strong>
+                    <span class="text-center d-block">Cette plante présente des effets toxiques ou néfaste pour la santé. Soyez vigilant...</span>
+                    <div class="row mt-5 px-5">
+                        <div class="col-lg-6">
+                            <p class="m-0">Cette plante présente des similarités avec :</p>
+                            <ul class="list-unstyled ms-3">
+                                {% for plant in post.plant.similitudes %}
+                                    <li class="fw-bold">- <a class="text-danger" href="{{ path('app_post_show', {slug: plant.post.slug}) }}">{{ plant.commonName }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-lg-6 flex-center flex-column">
+                            <p class="m-0">Cette plante présente des similarités avec :</p>
+                            <ul class="list-unstyled ms-3">
+                                {% for plant in post.plant.similitudes %}
+                                    <li class="fw-bold">- <a class="text-danger" href="{{ path('app_post_show', {slug: plant.post.slug}) }}">{{ plant.commonName }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             {% endif %}
             <img src="{{ post.image ?: 'https://via.placeholder.com/800x650' }}" class="vignette-image w-100" style="height: 450px !important;" alt="Photo principale - {{ post.plant.commonName }}">
@@ -91,7 +104,10 @@
                                 <h5>Similarités</h5>
                                 <ul>
                                     {% for plant in post.plant.similitudes %}
-                                        <li><a href="{{ path('app_post_show', {slug: plant.post.slug}) }}">{{ plant.commonName }}</a></li>
+                                        <li><a href="{{ path('app_post_show', {slug: plant.post.slug}) }}">
+                                            <img src="{{ plant.post.image }}" class="img-round-sm">
+                                            {{ plant.commonName }}
+                                        </a></li>
                                     {% endfor %}
                                 </ul>
                             </div>

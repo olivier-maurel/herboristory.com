@@ -255,7 +255,13 @@ class Plant
      */
     public function getSimilitudes(): Collection
     {
-        return $this->similitudes;
+        $array   = array_unique(array_merge($this->similitude->toArray(), $this->similitudes->toArray()));
+        $inArray = array_search($this, $array);
+        
+        if ($inArray !== false)
+            unset($array[$inArray]);
+
+        return new ArrayCollection($array);
     }
 
     public function getPost(): ?Post

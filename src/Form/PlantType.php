@@ -19,6 +19,7 @@ class PlantType extends AbstractType
             ->add('scientific_genus')
             ->add('scientific_species')
             ->add('iucn_redlist')
+            ->add('similitude')
         ;
     }
 
