@@ -55,18 +55,40 @@ class Plant
     private $iucn_redlist;
 
     /**
-     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="plant")
-     */
-    private $posts;
-
-    /**
      * @ORM\Column(type="json")
      */
     private $category = [];
 
+    /**
+     * @ORM\OneToOne(targetEntity=PlantFeature::class, mappedBy="plant", cascade={"persist", "remove"})
+     */
+    private $feature;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $uses = [];
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Plant::class, inversedBy="similitudes")
+     */
+    private $similitude;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Plant::class, mappedBy="similitude")
+     */
+    private $similitudes;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Post::class, mappedBy="plant", cascade={"persist", "remove"})
+     */
+    private $post;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+        $this->similitude = new ArrayCollection();
+        $this->similitudes = new ArrayCollection();
     }
 
     public function __toString()
@@ -163,36 +185,6 @@ class Plant
         return $this;
     }
 
-    /**
-     * @return Collection<int, Post>
-     */
-    public function getPosts(): Collection
-    {
-        return $this->posts;
-    }
-
-    public function addPost(Post $post): self
-    {
-        if (!$this->posts->contains($post)) {
-            $this->posts[] = $post;
-            $post->setPlant($this);
-        }
-
-        return $this;
-    }
-
-    public function removePost(Post $post): self
-    {
-        if ($this->posts->removeElement($post)) {
-            // set the owning side to null (unless already changed)
-            if ($post->getPlant() === $this) {
-                $post->setPlant(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCategory(): ?array
     {
         return $this->category;
@@ -201,6 +193,89 @@ class Plant
     public function setCategory(array $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getFeature(): ?PlantFeature
+    {
+        return $this->feature;
+    }
+
+    public function setFeature(PlantFeature $feature): self
+    {
+        // set the owning side of the relation if necessary
+        if ($feature->getPlant() !== $this) {
+            $feature->setPlant($this);
+        }
+
+        $this->feature = $feature;
+
+        return $this;
+    }
+
+    public function getUses(): ?array
+    {
+        return $this->uses;
+    }
+
+    public function setUses(array $uses): self
+    {
+        $this->uses = $uses;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getSimilitude(): Collection
+    {
+        return $this->similitude;
+    }
+
+    public function addSimilitude(self $similitude): self
+    {
+        if (!$this->similitude->contains($similitude)) {
+            $this->similitude[] = $similitude;
+        }
+
+        return $this;
+    }
+
+    public function removeSimilitude(self $similitude): self
+    {
+        $this->similitude->removeElement($similitude);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getSimilitudes(): Collection
+    {
+        return $this->similitudes;
+    }
+
+    public function getPost(): ?Post
+    {
+        return $this->post;
+    }
+
+    public function setPost(?Post $post): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($post === null && $this->post !== null) {
+            $this->post->setPlant(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($post !== null && $post->getPlant() !== $this) {
+            $post->setPlant($this);
+        }
+
+        $this->post = $post;
 
         return $this;
     }

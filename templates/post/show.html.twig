@@ -41,20 +41,20 @@
                         <div class="card-head pt-4">
                             <span class="h5 alt-font small text-center d-block mb-0">Sommaire</span>
                             <ul class="grid-filter nav nav-tabs justify-content-center border-0 text-uppercase font-weight-500 alt-font border-bottom pb-3">
-                                {% if post.pageMedicinal is not null %}
-                                    <li class="nav"><a href="#pageMedicinal" class="btn btn-sm">Médicinale</a></li>
+                                {% if post.content.medicinalPage is not null %}
+                                    <li class="nav"><a href="#medicinalPage" class="btn btn-sm">Médicinale</a></li>
                                 {% endif %}
                     
-                                {% if post.pageAlimental is not null %}
-                                    <li class="nav"><a href="#pageAlimental" class="btn btn-sm">Comestible</a></li>
+                                {% if post.content.alimentalPage is not null %}
+                                    <li class="nav"><a href="#alimentalPage" class="btn btn-sm">Comestible</a></li>
                                 {% endif %}
                     
-                                {% if post.pageAgricol is not null %}
-                                    <li class="nav"><a href="#pageAgricol" class="btn btn-sm">Agricole</a></li>
+                                {% if post.content.agricolPage is not null %}
+                                    <li class="nav"><a href="#agricolPage" class="btn btn-sm">Agricole</a></li>
                                 {% endif %}
                     
-                                {% if post.pageIndustrial is not null %}
-                                    <li class="nav"><a href="#pageIndustrial" class="btn btn-sm">Artisanale</a></li>
+                                {% if post.content.industrialPage is not null %}
+                                    <li class="nav"><a href="#industrialPage" class="btn btn-sm">Artisanale</a></li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -87,37 +87,45 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div>
+                                <h5>Similarités</h5>
+                                <ul>
+                                    {% for plant in post.plant.similitudes %}
+                                        <li><a href="{{ path('app_post_show', {slug: plant.post.slug}) }}">{{ plant.commonName }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </section>
             </div>
             
             <div class="col-lg-7">
-                {% if post.pageMedicinal is not null %}
-                    <section id="pageMedicinal" class="py-3">
+                {% if post.content.medicinalPage is not null %}
+                    <section id="medicinalPage" class="py-3">
                         <h2>Médicinale</h2>
-                        <p>{{ post.pageMedicinal }}</p>
+                        <p>{{ post.content.medicinalPage }}</p>
                     </section>
                 {% endif %}
     
-                {% if post.pageAlimental is not null %}
-                    <section id="pageAlimental" class="py-3">
+                {% if post.content.alimentalPage is not null %}
+                    <section id="alimentalPage" class="py-3">
                         <h2>Comestible</h2>
-                        <p>{{ post.pageAlimental }}</p>
+                        <p>{{ post.content.alimentalPage }}</p>
                     </section>
                 {% endif %}
     
-                {% if post.pageAgricol is not null %}
-                    <section id="pageAgricol" class="py-3">
-                        <h2>Agricole</h2>
-                        <p>{{ post.pageAgricol }}</p>
+                {% if post.content.agricolPage is not null %}
+                    <section id="agricolPage" class="py-3">
+                        <h2>agricole</h2>
+                        <p>{{ post.content.AgricolPage }}</p>
                     </section>
                 {% endif %}
     
-                {% if post.pageIndustrial is not null %}
-                    <section id="pageIndustrial" class="py-3">
+                {% if post.content.industrialPage is not null %}
+                    <section id="industrialPage" class="py-3">
                         <h2>Artisanale</h2>
-                        <p>{{ post.pageIndustrial }}</p>
+                        <p>{{ post.content.industrialPage }}</p>
                     </section>
                 {% endif %}
             </div>

@@ -23,11 +23,6 @@ class Post
     private $title;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $content;
-
-    /**
      * @ORM\Column(type="json", nullable=true)
      */
     private $keywords = [];
@@ -43,11 +38,6 @@ class Post
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Plant::class, inversedBy="posts")
-     */
-    private $plant;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $modified_at;
@@ -58,29 +48,19 @@ class Post
     private $created_at;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $page_alimental;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $page_medicinal;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $page_agricol;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $page_industrial;
-
-    /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
+
+    /**
+     * @ORM\OneToOne(targetEntity=PostContent::class, mappedBy="post", cascade={"persist", "remove"})
+     */
+    private $content;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Plant::class, inversedBy="post", cascade={"persist", "remove"})
+     */
+    private $plant;
 
     public function __toString()
     {
@@ -100,18 +80,6 @@ class Post
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
 
         return $this;
     }
@@ -152,18 +120,6 @@ class Post
         return $this;
     }
 
-    public function getPlant(): ?Plant
-    {
-        return $this->plant;
-    }
-
-    public function setPlant(?Plant $plant): self
-    {
-        $this->plant = $plant;
-
-        return $this;
-    }
-
     public function getModifiedAt(): ?\DateTimeInterface
     {
         return $this->modified_at;
@@ -188,54 +144,6 @@ class Post
         return $this;
     }
 
-    public function getPageAlimental(): ?string
-    {
-        return $this->page_alimental;
-    }
-
-    public function setPageAlimental(?string $page_alimental): self
-    {
-        $this->page_alimental = $page_alimental;
-
-        return $this;
-    }
-
-    public function getPageMedicinal(): ?string
-    {
-        return $this->page_medicinal;
-    }
-
-    public function setPageMedicinal(?string $page_medicinal): self
-    {
-        $this->page_medicinal = $page_medicinal;
-
-        return $this;
-    }
-
-    public function getPageAgricol(): ?string
-    {
-        return $this->page_agricol;
-    }
-
-    public function setPageAgricol(?string $page_agricol): self
-    {
-        $this->page_agricol = $page_agricol;
-
-        return $this;
-    }
-
-    public function getPageIndustrial(): ?string
-    {
-        return $this->page_industrial;
-    }
-
-    public function setPageIndustrial(?string $page_industrial): self
-    {
-        $this->page_industrial = $page_industrial;
-
-        return $this;
-    }
-
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -244,6 +152,35 @@ class Post
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getContent(): ?PostContent
+    {
+        return $this->content;
+    }
+
+    public function setContent(PostContent $content): self
+    {
+        // set the owning side of the relation if necessary
+        if ($content->getPost() !== $this) {
+            $content->setPost($this);
+        }
+
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function getPlant(): ?Plant
+    {
+        return $this->plant;
+    }
+
+    public function setPlant(?Plant $plant): self
+    {
+        $this->plant = $plant;
 
         return $this;
     }
