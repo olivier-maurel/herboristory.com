@@ -14,17 +14,17 @@
                                 <button type="submit" class="search-button small p-0" style="line-height: initial;">
                                     <i class="fa fa-search small text-black" aria-hidden="true"></i>
                                 </button>
-                                <input class="search-input small alt-font text-black border-0 py-1 px-1" placeholder="Recherche..." name="q" value="{{ app.request.query.get('q') }}" type="text" autocomplete="off">
+                                <input class="search-input small alt-font text-black border-0 py-1 px-1" placeholder="Recherche..." name="query" value="{{ app.request.query.get('q') }}" type="text" autocomplete="off">
                             </div>
                         </form>
                     </div>
-                    <ul data-type="c" class="grid-filter nav nav-tabs justify-content-center border-0 text-uppercase font-weight-500 alt-font col-lg-8">
+                    <ul data-type="type" class="grid-filter nav nav-tabs justify-content-center border-0 text-uppercase font-weight-500 alt-font col-lg-8">
                         <li class="nav pointer active"><a data-filter="">Tous</a></li>
                         <li class="nav pointer"><a data-filter="med" >Medicinale</a></li>
                         <li class="nav pointer"><a data-filter="com">Comestible</a></li>
                         <li class="nav pointer"><a data-filter="tox">Toxique</a></li>
                     </ul>
-                    <ul data-type="l" class="grid-filter col">
+                    <ul data-type="list" class="grid-filter col">
                         <li class="nav fluid px-2 {{ (list == 'box') ? 'd-none' }}">
                             <a data-filter="box" class="btn btn-rounded btn-light pointer border-0">
                                 <i class="fa fa-border-all text-muted"></i>
@@ -72,10 +72,10 @@
             var filter      = $(this).children('a').data('filter');
             var type        = $(this).parent().data('type');
             
-            if (type === 'c') {
+            if (type === 'type') {
                 $(this).parents( 'section' ).find( '.grid-filter > li' ).removeClass( 'active' );
                 $(this).addClass('active');
-            } else if (type === 'l') {
+            } else if (type === 'list') {
                 $(this).siblings('li').removeClass('d-none');
                 $(this).addClass('d-none')
             }
@@ -89,7 +89,7 @@
         $(document.body).on('submit', '.search-form-ajax', function(e){
             
             $('.search-input').val($(this).find('.search-input').val());
-            setSearch('q', $(this).find('.search-input').val());
+            setSearch('query', $(this).find('.search-input').val());
             setPagination(page);
             e.preventDefault();
     
@@ -104,8 +104,6 @@
         })
 
         setPagination(page);
-
-        // style="visibility: hidden;"
 
     }(jQuery));
 

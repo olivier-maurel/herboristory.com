@@ -24,7 +24,7 @@ class PlantFeature
     private $plant;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="feature_leaf", type="text", nullable=true)
      */
     private $leaf;
 

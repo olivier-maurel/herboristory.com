@@ -102,10 +102,10 @@ function setSearch(type, filter)
     var spinner = setSpinner($('#listingPostsContainer'));
 
     var queryParameters = {
-        r: "{{ app.request.attributes.get('_route') }}",
-        q: parameters['q'], 
-        c: parameters['c'], 
-        l: parameters['l'] 
+        route: "{{ app.request.attributes.get('_route') }}",
+        query: parameters['query'], 
+        type: parameters['type'], 
+        list: parameters['list'] 
     };
 
     $.get("{{ path('app_search') }}", queryParameters, 
@@ -134,11 +134,11 @@ function setPagination(page)
             var parameters = getParameters();
             // parameters = addParameter(parameters, ['p', ((parameters['p']) ? parseInt(parameters['p']) + 1 : 2)])
             var queryParameters = {
-                r: "{{ app.request.attributes.get('_route') }}",
-                q: parameters['q'], 
-                c: parameters['c'], 
-                l: parameters['l'],
-                p: page = page + 1
+                route: "{{ app.request.attributes.get('_route') }}",
+                query: parameters['query'], 
+                type: parameters['type'], 
+                list: parameters['list'],
+                page: page = page + 1
             };
 
             window.history.pushState( {} , '', setParameters(parameters));

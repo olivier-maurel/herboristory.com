@@ -11,7 +11,7 @@
                             <button title="Close" type="button" class="search-close alt-font">×</button>
                             <form id="searchForm" role="search" method="GET" class="search-form search-form-ajax text-start">
                                 <div class="search-form-box">
-                                    <input class="search-input alt-font" id="searchFormInput" placeholder="Que recherchez-vous ?" name="q" value="{{ app.request.query.get('q') }}" type="text" autocomplete="off">
+                                    <input class="search-input alt-font" id="searchFormInput" placeholder="Que recherchez-vous ?" name="query" value="{{ app.request.query.get('q') }}" type="text" autocomplete="off">
                                     <button type="submit" class="search-button">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
@@ -23,7 +23,8 @@
                 </div>
                 
                 <a class="col navbar-brand mx-auto px-0 flex-column flex-center-x" href="{{ path('app_index') }}">
-                    <h1 class="h-font h1 text-custom-h1 m-0 text-success" style="line-height: 100%;">Herboristory</h1>
+                    <!-- <h1 class="h-font h1 text-custom-h1 m-0 text-success" style="line-height: 100%;">Herboristory</h1> -->
+                    <h1 class="h-font h1 text-custom-h1 text-uppercase fw-bold mb-0" style="color: #419e3c; border-color: #419e3c50 !important; word-break: keep-all;">Herboristory</h1>
                 </a>                            
                 
                 <div class="col flex-end flex-center-y">

@@ -31,20 +31,20 @@ class IndexController extends AbstractController
     public function search(Request $request, PostRepository $postRepository, PaginatorInterface $paginator): Response
     {
         $data = $postRepository->findBySearch(
-            $request->query->get('q'),
-            $request->query->get('c')
+            $request->query->get('query'),
+            $request->query->get('type')
         );
 
         $posts = $paginator->paginate(
             $data, // Requête contenant les données à paginer (ici nos articles)
-            $request->query->getInt('p', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             12 // Nombre de résultats par page
         );
 
-        $list = ($request->query->get('l') == 'box' || $request->query->get('l') == 'row') ? $request->query->get('l') : 'row';
+        $list = ($request->query->get('list') == 'box' || $request->query->get('list') == 'row') ? $request->query->get('list') : 'row';
 
-        if ($request->isXmlHttpRequest() && ($request->query->get('r') !== null)) {
-            if ($request->query->get('r') === $request->get('_route'))
+        if ($request->isXmlHttpRequest() && ($request->query->get('route') !== null)) {
+            if ($request->query->get('route') === $request->get('_route'))
                 return new JsonResponse([
                     'response' => $this->renderView('post/_listing_'.$list.'.html.twig', [
                         'posts' => $posts

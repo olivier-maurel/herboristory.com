@@ -188,6 +188,11 @@ a.disabled{
     height: 45px;
     border-radius: 50%;
 }
+.img-round-xs {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
 .middle-top {
     position: absolute;
     top: 0;

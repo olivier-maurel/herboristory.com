@@ -1,6 +1,7 @@
 <?php
 namespace App\Extension;
 
+use App\Entity\PlantFeature;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -12,6 +13,7 @@ class PlantExtension extends AbstractExtension
             new TwigFilter('getIcon', [$this, 'getIcon']),
             new TwigFilter('getAlt', [$this, 'getAlt']),
             new TwigFilter('isToxic', [$this, 'isToxic']),
+            new TwigFilter('getFeatures', [$this, 'getFeatures']),
         ];
     }
 
@@ -56,5 +58,17 @@ class PlantExtension extends AbstractExtension
     public function isToxic(array $categories)
     {
         return key_exists('tox', $categories);
+    }
+
+    public function getFeatures(PlantFeature $plantFeature)
+    {
+        return [
+            'leaf' => $plantFeature->getLeaf(),
+            'rod' => $plantFeature->getRod(),
+            'root' => $plantFeature->getRoot(),
+            'flower' => $plantFeature->getFlower(),
+            'fruct' => $plantFeature->getFruct(),
+            'seed' => $plantFeature->getSeed()
+        ];
     }
 }

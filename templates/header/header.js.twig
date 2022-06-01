@@ -3,7 +3,7 @@
     $(document.body).on('submit', '.search-form', function(e){
             
         $('.search-input').val($(this).find('.search-input').val());
-        setSearch('q', $(this).find('.search-input').val());
+        setSearch('query', $(this).find('.search-input').val());
         $(document.body).removeClass('show-search-popup');
         e.preventDefault();
 
