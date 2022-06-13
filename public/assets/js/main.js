@@ -643,7 +643,7 @@
             //     formObj.find( 'input:eq(' + index + ')' ).addClass( 'search-error' );
             //     error = false;
             // } else {
-                formObj.find( 'input:eq(' + index + ')' ).removeClass( 'search-error' );
+                 formObj.find( 'input:eq(' + index + ')' ).removeClass( 'search-error' );
             // }
         });
         return error;

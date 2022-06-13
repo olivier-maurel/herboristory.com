@@ -1,0 +1,96 @@
+<section class="p-0 position-sticky" style="top: 1.4rem;">
+    <div class="card overflow-auto bg-green-fast-light" style="height: calc(100vh - 2.8rem)">
+        <div class="card-head pt-4">
+            <span class="h5 alt-font small text-center d-block mb-0">Sommaire</span>
+            <ul class="grid-filter nav nav-tabs justify-content-center border-0 text-uppercase font-weight-500 alt-font border-bottom pb-3">
+                <li class="nav"><a href="#descriptionPage" class="btn btn-sm">Description</a></li>
+                {% if post.content.medicinalPage is not null %}
+                    <li class="nav"><a href="#medicinalPage" class="btn btn-sm">Médicinale</a></li>
+                {% endif %}
+    
+                {% if post.content.alimentalPage is not null %}
+                    <li class="nav"><a href="#alimentalPage" class="btn btn-sm">Comestible</a></li>
+                {% endif %}
+    
+                {% if post.content.agricolPage is not null %}
+                    <li class="nav"><a href="#agricolPage" class="btn btn-sm">Agricole</a></li>
+                {% endif %}
+    
+                {% if post.content.industrialPage is not null %}
+                    <li class="nav"><a href="#industrialPage" class="btn btn-sm">Artisanale</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="card-body">
+            <table class="w-100 mt-4">
+                <tbody>
+                    <tr>
+                        <td class="text-muted small text-end">Nom commun : </td>
+                        <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.commonName }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted small text-end">Classe : </td>
+                        <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificClass }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted small text-end">Ordre : </td>
+                        <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificOrder }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted small text-end">Famille : </td>
+                        <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificFamily }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted small text-end">Genre : </td>
+                        <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificGenus }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted small text-end">Espèce : </td>
+                        <td class="text-black text-uppercase fw-bold ps-4">{{ post.plant.scientificSpecies }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <h5>Similarités</h5>
+                <ul>
+                    {% for plant in post.plant.similitudes %}
+                        <li><a href="{{ path('app_post_show', {slug: plant.post.slug}) }}">
+                            <img src="{{ plant.post.image }}" class="img-round-sm">
+                            {{ plant.commonName }}
+                        </a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <h5>Couleurs</h5>
+                <ul>
+                    {% for color, value in post.plant.feature.color %}
+                        <li>
+                            <div class="img-round-xs" style="background-color: {{ color }};"></div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <h5>Saisons</h5>
+                <ul>
+                    {% for season, value in post.plant.feature.season %}
+                        <li>
+                            {{ season }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <h5>Habitat</h5>
+                <ul>
+                    {% for habitat, value in post.plant.feature.habitat %}
+                        <li>
+                            {{ habitat }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,15 +1,15 @@
 {% for post in posts %}
 <li class="col-lg-3 col-md-6 col-sm-12 h-100 py-3">
-    <a href="{{ path('app_post_show', {slug:post.slug}) }}" class="w-100 h-100 position-relative d-block overflow-hidden round-sm shadow-md opacity-75 shadow-hover">
+    <a href="{{ path('app_post_show', {slug:post.slug}) }}" class="w-100 h-100 position-relative d-block overflow-hidden round-sm shadow-sm shadow-hover">
         <img src="{{ post.image ?: 'https://via.placeholder.com/800x650' }}" class="vignette-image" alt="Photo principale - {{ post.plant.commonName }}">
-        <div class="bg-beige w-100 flex-center flex-column position-relative" style="height: 140px; border-top: solid 3px rgba(0, 0, 0, 0.5);">
+        <div class="bg-beige w-100 flex-center flex-column position-relative" style="height: 140px; border-top: solid 3px rgb(159, 208, 161);">
             <!-- <h3 class="badge bg-primary m-0" style="font-size: large;">{{ post.id }}</h3> -->
             <div class="w-100 middle-top d-flex justify-content-end px-2">
                 {% for key, category in post.plant.category %}
                     <i class="fa {{ key|getIcon }} text-white round type-icon mx-1" title="{{ key|getAlt }}"></i>
                 {% endfor %}
             </div>
-            <span class="text-uppercase text-white text-shadow m-0">{{ post.title }}</span>
+            <span class="text-uppercase alt-font fw-bold text-shadow m-0">{{ post.title }}</span>
             <span class="text-muted small text-shadow">{{ post.plant.commonName }}</span>
         </div>
 

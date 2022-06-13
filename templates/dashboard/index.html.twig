@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!{% endblock %}
+
+{% block body %}
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Plante</th>
+                <th>Caractéristique</th>
+                <th>Article</th>
+                <th>Contenu</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plant in plants %}
+            <tr>
+                <td>
+                    <a href="{{ path('app_post_show', {slug: plant.post.slug}) }}">
+                        <img src="{{ plant.post.image }}" style="height: 60px; width: 120px; object-fit: cover; border-radius: 5px 0 0 5px;">
+                        {{ plant.commonName }}
+                    </a>
+                </td>
+                <td>{{ (plant.feature is not null) ? 'V' : 'X' }}</td>
+                <td>{{ (plant.post is not null) ? 'V' : 'X' }}</td>
+                <td>{{ (plant.post.content is not null) ? 'V' : 'X' }}</td>
+                <td>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li>
+                            <a href="{{ path('app_logout') }}" class="dropdown-item">
+                                Modifier la plante
+                            </a>
+                            <a href="{{ path('app_logout') }}" class="dropdown-item">
+                                Modifier l'article
+                            </a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -7,12 +7,13 @@ use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/post")
+ * @Route("/article")
  */
 class PostController extends AbstractController
 {
@@ -60,6 +61,15 @@ class PostController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         
         $post = $em->getRepository(Post::class)->findOneBySlug($slug);
+
+        if ($request->isXmlHttpRequest()) {
+            $item = $request->query->get('item');
+            return new JsonResponse([
+                'html' => $this->renderView('post/_show_'.$item.'.html.twig', [
+                    'post' => $post,
+                ])
+            ]);
+        }
 
         return $this->render('post/show.html.twig', [
             'post' => $post,

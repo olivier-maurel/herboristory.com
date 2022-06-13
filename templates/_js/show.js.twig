@@ -1,0 +1,35 @@
+<script>
+
+    function loadRightbar() {
+
+        let target = $(document.body).find('#rightbar');
+        let card = $('<div>').addClass('card rightbar').appendTo(target);
+
+        let spinner = setSpinner(card);
+
+        $.get("{{ path('app_post_show', {slug: post.slug}) }}", {item: 'rightbar'}, function(data){
+            target.html(data.html);
+        });
+
+    }
+
+    function loadContent() {
+
+        let target = $(document.body).find('#content');
+
+        let spinner = setSpinner($('<div>').addClass('position-relative').appendTo(target));
+
+        $.get("{{ path('app_post_show', {slug: post.slug}) }}", {item: 'content'}, function(data){
+            target.html(data.html);
+        });
+
+    }
+
+    loadRightbar();
+    loadContent();
+
+    $(document).ready(function() {
+        $('.lightbox-group-gallery-item').magnificPopup({type:'image'});
+    });
+
+</script>
