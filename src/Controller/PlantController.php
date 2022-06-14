@@ -43,7 +43,7 @@ class PlantController extends AbstractController
             $entityManager->persist($plant);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_plant_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('plant/new.html.twig', [
@@ -73,7 +73,7 @@ class PlantController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_plant_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('plant/edit.html.twig', [
@@ -92,6 +92,6 @@ class PlantController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_plant_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -31,10 +31,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li>
-                            <a href="{{ path('app_logout') }}" class="dropdown-item">
+                            <a href="{{ path('app_plant_edit', {id:plant.id}) }}" class="dropdown-item">
                                 Modifier la plante
                             </a>
-                            <a href="{{ path('app_logout') }}" class="dropdown-item">
+                            <a href="{{ path('app_post_edit', {id:plant.post.id}) }}" class="dropdown-item">
                                 Modifier l'article
                             </a>
                         </li>
