@@ -58,6 +58,7 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('post.plant', 'plant')
         ;
 
+        // Recherche par texte
         if ($search != '')
             $query
                 // Search from plant
@@ -75,10 +76,11 @@ class PostRepository extends ServiceEntityRepository
                 ->setParameter('search', '%'.$search.'%')
             ;
 
+        // Recherche par catégorie
         if ($category != '')
             $query 
-                ->andWhere('JSON_CONTAINS(plant.category, \'1\', :category) = 1')
-                ->setParameter('category', '$.'.$category)
+                ->andWhere('plant.category LIKE :category')
+                ->setParameter('category', '%'.$category.'%')
             ;
 
         return $query

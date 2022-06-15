@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="author" content="Ancrom">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" />
+        <meta name="description" content="">
+        <title>{% block title %}{% endblock %} - Herboristory</title>
+        <link rel="icon" href="{{ asset('img/brand/icon.png') }}">
+
+        <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}"> -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/font-icons.min.css') }}">
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.14.0/devicon.min.css">  -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/theme-vendors.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/default.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/richtext.min.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/tagsinput.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/spinner.css') }}" />
+        <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" /> -->
+        {% block stylesheet %}{% endblock %}
+        
+        
+    </head>
+    <body class="" data-mobile-nav-style="classic">
+
+        <!-- HEADER -->
+        {{ include('header/_header.html.twig') }}
+
+        <!-- BODY -->
+        <div class="container-fluid">
+            <div class="col-lg-9 m-auto py-5">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        {{ include('_footer.html.twig') }}
+
+        <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/theme-vendors.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.richtext.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/tagsinput.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+        <!-- <script type="text/javascript" src="{{ asset('js/functions.js') }}"></script> -->
+        {{ include('header/header.js.twig') }}
+        {{ include('_js/functions.js.twig') }}
+
+        {% block javascripts %}{% endblock %}
+        
+    </body>
+</html>

@@ -4,6 +4,9 @@
 
 {% block body %}
 <div>
+    <div class="col-lg-12">
+        <a href="{{ path('app_plant_new') }}">Créer</a>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -17,14 +20,14 @@
             {% for plant in plants %}
             <tr>
                 <td>
-                    <a href="{{ path('app_post_show', {slug: plant.post.slug}) }}">
-                        <img src="{{ plant.post.image }}" style="height: 60px; width: 120px; object-fit: cover; border-radius: 5px 0 0 5px;">
+                    <a href="{{ (plant.post.slug is defined) ? path('app_post_show', {slug: plant.post.slug}) : '#' }}">
+                        <img src="{{ (plant.post.image is defined and plant.post.image is not null) ? plant.post.image : '' }}" style="height: 60px; width: 120px; object-fit: cover; border-radius: 5px 0 0 5px;">
                         {{ plant.commonName }}
                     </a>
                 </td>
                 <td>{{ (plant.feature is not null) ? 'V' : 'X' }}</td>
                 <td>{{ (plant.post is not null) ? 'V' : 'X' }}</td>
-                <td>{{ (plant.post.content is not null) ? 'V' : 'X' }}</td>
+                <td>{{ (plant.post.content is defined and plant.post.content is not null) ? 'V' : 'X' }}</td>
                 <td>
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-ellipsis-h"></i>
@@ -34,8 +37,8 @@
                             <a href="{{ path('app_plant_edit', {id:plant.id}) }}" class="dropdown-item">
                                 Modifier la plante
                             </a>
-                            <a href="{{ path('app_post_edit', {id:plant.post.id}) }}" class="dropdown-item">
-                                Modifier l'article
+                            <a href="{{ (plant.post is not null) ? path('app_post_edit', {id:plant.post.id}) : path('app_post_new', {plant:plant.id}) }}" class="dropdown-item">
+                                {{ (plant.post is not null) ? 'Modifier l\'' : 'Créer un' }} article
                             </a>
                         </li>
                     </ul>

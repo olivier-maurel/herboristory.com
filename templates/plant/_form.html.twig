@@ -1,4 +1,26 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <div class="row">
+        <div class="col-lg-12">
+            {{ form_row(form.commonName) }}
+        </div>
+        <div class="col-lg-6">
+            {{ form_row(form.scientific_class) }}
+            {{ form_row(form.scientific_order) }}
+            {{ form_row(form.scientific_family) }}
+            {{ form_row(form.scientific_genus) }}
+            {{ form_row(form.scientific_species) }}
+            {{ form_row(form.category) }}
+            {{ form_row(form.iucn_redlist) }}
+            {{ form_row(form.similitude) }}
+        </div>
+        <div class="col-lg-6">
+            {{ form_row(form.feature.root) }}
+            {{ form_row(form.feature.rod) }}
+            {{ form_row(form.feature.leaf) }}
+            {{ form_row(form.feature.flower) }}
+            {{ form_row(form.feature.fruct) }}
+            {{ form_row(form.feature.seed) }}
+        </div>
+    </div>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

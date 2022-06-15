@@ -1,4 +1,14 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_row(form.title, {value: plant.commonName, attr: {class: 'disabled'}}) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.keywords) }}
+    {{ form_row(form.image) }}
+    {{ form_row(form.content.description_page) }}
+    {{ form_row(form.content.alimental_page) }}
+    {{ form_row(form.content.medicinal_page) }}
+    {{ form_row(form.content.agricol_page) }}
+    {{ form_row(form.content.industrial_page) }}
+    {{ form_row(form.content.images) }}
+    {{ form_row(form.content.links) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

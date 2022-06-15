@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Plant;
 use App\Entity\PlantFeature;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
@@ -23,32 +24,29 @@ class PlantType extends AbstractType
             ->add('scientific_family')
             ->add('scientific_genus')
             ->add('scientific_species')
+            ->add('category', ChoiceType::class, [
+                'choices' => [
+                    'Comestible' => 'com',
+                    'Médicinale' => 'med',
+                    'Toxique'    => 'tox',
+                ],
+                'expanded' => true,
+                'multiple' => true
+            ])
             ->add('iucn_redlist', ChoiceType::class, [
                 'choices' => [
                     'LC' => 'LC',
                     'XV' => 'XV',
                     'WO' => 'WO',
                 ],
-                'expanded' => true
-                
+                'expanded' => true    
             ])
             ->add('similitude', null, [
                 'attr' => [
                     'class' => 'select-control'
                 ]
             ])
-            ->add('feature', PlantFeatureType::class
-                // $builder->create('feature', FormType::class)
-                //     ->add('leaf')
-                //     ->add('rod')
-                //     ->add('root')
-                //     ->add('flower')
-                //     ->add('fruct')
-                //     ->add('seed')
-                //     ->add('color')
-                //     ->add('season')
-                //     ->add('habitat')
-            )
+            ->add('feature', PlantFeatureType::class)
         ;
     }
 

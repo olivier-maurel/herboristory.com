@@ -5,6 +5,9 @@ namespace App\Form;
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,23 +17,19 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('content')
             ->add('keywords')
-            ->add('description')
-            ->add('image')
-            ->add('modified_at')
-            ->add('created_at')
-            ->add('plant')
+            ->add('description', TextareaType::class)
+            ->add('image', FileType::class)
+            ->add('plant', HiddenType::class)
+            ->add('content', PostContentType::class)
         ;
 
         $builder->get('keywords')
             ->addModelTransformer(new CallbackTransformer(
                 function ($tagsAsArray) {
-                    // transform the array to a string
                     return implode(',', $tagsAsArray);
                 },
                 function ($tagsAsString) {
-                    // transform the string back to an array
                     return explode(',', $tagsAsString);
                 }
             ))

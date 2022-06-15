@@ -10,8 +10,8 @@
                 <span class="small text-muted opacity-75" style="line-height: initial;">{{ post.plant.scientificGenus ~ ' ' ~ post.plant.scientificSpecies }}</span>
             </div>
             <div class="d-flex px-3">
-                {% for key, category in post.plant.category %}
-                    <i class="fa {{ key|getIcon }} mx-1 text-white round type-icon" title="{{ key|getAlt }}"></i>
+                {% for category in post.plant.category %}
+                    <i class="fa {{ category|getIcon }} mx-1 text-white round type-icon" title="{{ category|getAlt }}"></i>
                 {% endfor %}
             </div>
         </a>

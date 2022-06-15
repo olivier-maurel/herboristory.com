@@ -26,7 +26,7 @@ function getParameters()
 function setParameters(parameters)
 {
     if (Object.keys(parameters).length == 0)
-        return '/';
+        return null;
 
     var urlParams   = '?';
 
@@ -95,7 +95,7 @@ function setSearch(type, filter)
         window.location.replace("{{ path('app_search') }}" + urlParameters);
 
     // Génère l'url
-    window.history.pushState( {} , '', urlParameters);
+    window.history.pushState( {} , '', ((urlParameters) ? urlParameters : '/search'));
 
     // Génère l'animation de chargement
     $('#listingPostsContainer').fadeOut(100);

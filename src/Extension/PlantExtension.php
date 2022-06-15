@@ -57,7 +57,7 @@ class PlantExtension extends AbstractExtension
 
     public function isToxic(array $categories)
     {
-        return key_exists('tox', $categories);
+        return in_array('tox', $categories);
     }
 
     public function getFeatures(PlantFeature $plantFeature)

@@ -62,6 +62,11 @@ class Post
      */
     private $plant;
 
+    public function __construct()
+    {
+        $this->created_at = new \DateTime(); ///// TODO: Faire un listener pour CREATED_AT, SLUG, etc...
+    }
+
     public function __toString()
     {
         return $this->title;

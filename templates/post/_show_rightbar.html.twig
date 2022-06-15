@@ -64,7 +64,7 @@
             <div>
                 <h5>Couleurs</h5>
                 <ul>
-                    {% for color, value in post.plant.feature.color %}
+                    {% for color in post.plant.feature.color %}
                         <li>
                             <div class="img-round-xs" style="background-color: {{ color }};"></div>
                         </li>
@@ -74,7 +74,7 @@
             <div>
                 <h5>Saisons</h5>
                 <ul>
-                    {% for season, value in post.plant.feature.season %}
+                    {% for season in post.plant.feature.season %}
                         <li>
                             {{ season }}
                         </li>
@@ -84,7 +84,7 @@
             <div>
                 <h5>Habitat</h5>
                 <ul>
-                    {% for habitat, value in post.plant.feature.habitat %}
+                    {% for habitat in post.plant.feature.habitat %}
                         <li>
                             {{ habitat }}
                         </li>

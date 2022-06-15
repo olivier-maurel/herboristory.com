@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Plant;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
@@ -32,9 +33,9 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_post_new", methods={"GET", "POST"})
+     * @Route("/new/{plant}", name="app_post_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Plant $plant, Request $request, EntityManagerInterface $entityManager): Response
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
@@ -50,6 +51,7 @@ class PostController extends AbstractController
         return $this->renderForm('post/new.html.twig', [
             'post' => $post,
             'form' => $form,
+            'plant' => $plant
         ]);
     }
 

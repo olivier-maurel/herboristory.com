@@ -41,8 +41,8 @@
             {% endif %}
             <img src="{{ post.image ?: 'https://via.placeholder.com/800x650' }}" class="vignette-image w-100" style="height: 450px !important;" alt="Photo principale - {{ post.plant.commonName }}">
             <div class="w-100 d-flex justify-content-end middle-top px-2">
-                {% for key, category in post.plant.category %}
-                    <i class="fa {{ key|getIcon }} text-white round type-icon-lg mx-1" title="{{ key|getAlt }}"></i>
+                {% for category in post.plant.category %}
+                    <i class="fa {{ category|getIcon }} text-white round type-icon-lg mx-1" title="{{ category|getAlt }}"></i>
                 {% endfor %}
             </div>
         </section>
