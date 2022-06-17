@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PlantFeatureSecondary{% endblock %}
+
+{% block body %}
+    <h1>Create new PlantFeatureSecondary</h1>
+
+    {{ include('plant_feature_secondary/_form.html.twig') }}
+
+    <a href="{{ path('app_plant_feature_secondary_index') }}">back to list</a>
+{% endblock %}

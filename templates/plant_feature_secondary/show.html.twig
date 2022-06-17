@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PlantFeatureSecondary{% endblock %}
+
+{% block body %}
+    <h1>PlantFeatureSecondary</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ plant_feature_secondary.id }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ plant_feature_secondary.type }}</td>
+            </tr>
+            <tr>
+                <th>Label</th>
+                <td>{{ plant_feature_secondary.label }}</td>
+            </tr>
+            <tr>
+                <th>Icon</th>
+                <td>{{ plant_feature_secondary.icon }}</td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td>{{ plant_feature_secondary.value }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_plant_feature_secondary_index') }}">back to list</a>
+
+    <a href="{{ path('app_plant_feature_secondary_edit', {'id': plant_feature_secondary.id}) }}">edit</a>
+
+    {{ include('plant_feature_secondary/_delete_form.html.twig') }}
+{% endblock %}

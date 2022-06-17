@@ -35,17 +35,19 @@ class PostController extends AbstractController
     /**
      * @Route("/new/{plant}", name="app_post_new", methods={"GET", "POST"})
      */
-    public function new(Plant $plant, Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Plant $plant = null, Request $request, EntityManagerInterface $entityManager): Response
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
+        //dd($request->request->all());
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            $post->setPlant($plant);
             $entityManager->persist($post);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('post/new.html.twig', [
@@ -89,7 +91,7 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('post/edit.html.twig', [

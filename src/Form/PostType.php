@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Plant;
 use App\Entity\Post;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -19,8 +21,13 @@ class PostType extends AbstractType
             ->add('title')
             ->add('keywords')
             ->add('description', TextareaType::class)
-            ->add('image', FileType::class)
-            ->add('plant', HiddenType::class)
+            ->add('image', null)
+            ->add('plant', EntityType::class, [
+                'class' => Plant::class,
+                'attr' => [
+                    'hidden' => true
+                ]
+            ])
             ->add('content', PostContentType::class)
         ;
 

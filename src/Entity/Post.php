@@ -154,9 +154,9 @@ class Post
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug(string $string): self
     {
-        $this->slug = $slug;
+        $this->slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string), '-'));
 
         return $this;
     }

@@ -1,5 +1,9 @@
+{% set plant = (plant is defined) ?: null %}
 {{ form_start(form) }}
-    {{ form_row(form.title, {value: plant.commonName, attr: {class: 'disabled'}}) }}
+    {% if post.plant is null %}
+    {{ form_row(form.plant, {value: (plant is not null) ? plant.id : null }) }}
+    {% endif %}
+    {{ form_row(form.title, {value: (plant is not null) ? plant.commonName : post.title, attr: {class: 'disabled'}}) }}
     {{ form_row(form.description) }}
     {{ form_row(form.keywords) }}
     {{ form_row(form.image) }}

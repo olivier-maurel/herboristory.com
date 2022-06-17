@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit PlantFeatureSecondary{% endblock %}
+
+{% block body %}
+    <h1>Edit PlantFeatureSecondary</h1>
+
+    {{ include('plant_feature_secondary/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_plant_feature_secondary_index') }}">back to list</a>
+
+    {{ include('plant_feature_secondary/_delete_form.html.twig') }}
+{% endblock %}

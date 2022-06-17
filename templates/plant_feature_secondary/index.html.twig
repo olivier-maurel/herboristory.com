@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PlantFeatureSecondary index{% endblock %}
+
+{% block body %}
+    <h1>PlantFeatureSecondary index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Label</th>
+                <th>Icon</th>
+                <th>Value</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for plant_feature_secondary in plant_feature_secondaries %}
+            <tr>
+                <td>{{ plant_feature_secondary.id }}</td>
+                <td>{{ plant_feature_secondary.type }}</td>
+                <td>{{ plant_feature_secondary.label }}</td>
+                <td>{{ plant_feature_secondary.icon }}</td>
+                <td>{{ plant_feature_secondary.value }}</td>
+                <td>
+                    <a href="{{ path('app_plant_feature_secondary_show', {'id': plant_feature_secondary.id}) }}">show</a>
+                    <a href="{{ path('app_plant_feature_secondary_edit', {'id': plant_feature_secondary.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_plant_feature_secondary_new') }}">Create new</a>
+{% endblock %}
