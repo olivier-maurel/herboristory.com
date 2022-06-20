@@ -1,4 +1,4 @@
-{% set plant = (plant is defined) ?: null %}
+{% set plant = (plant is defined) ? plant : null %}
 {{ form_start(form) }}
     {% if post.plant is null %}
     {{ form_row(form.plant, {value: (plant is not null) ? plant.id : null }) }}

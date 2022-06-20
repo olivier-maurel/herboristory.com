@@ -20,7 +20,7 @@ class PlantFeatureType extends AbstractType
             ->add('flower')
             ->add('fruct')
             ->add('seed')
-            
+            ->add('attributes')
         ;
     }
 

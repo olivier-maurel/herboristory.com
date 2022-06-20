@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Usr\Subscriber;
+use App\Repository\PlantAttributeRepository;
 use App\Repository\PostRepository;
 use App\Repository\Usr\SubscriberRepository;
+use App\Service\PlantService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,7 +30,7 @@ class IndexController extends AbstractController
     /**
      * @Route("/search", name="app_search")
      */
-    public function search(Request $request, PostRepository $postRepository, PaginatorInterface $paginator): Response
+    public function search(Request $request, PostRepository $postRepository, PlantService $plantService, PaginatorInterface $paginator): Response
     {
         $data = $postRepository->findBySearch(
             $request->query->get('query'),
@@ -58,6 +60,7 @@ class IndexController extends AbstractController
 
         return $this->render('index/search.html.twig', [
             'posts' => $posts,
+            'attr' => $plantService->sortAttributes(),
             'list' => $list
         ]);
     }

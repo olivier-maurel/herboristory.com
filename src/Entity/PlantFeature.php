@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\PlantAttributeRepository;
 use App\Repository\PlantFeatureRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -60,21 +61,9 @@ class PlantFeature
      */
     private $attributes;
 
-    // /**
-    //  * @ORM\ManyToMany(targetEntity=PlantAttribute::class)
-    //  */
-    // private $season;
-
-    // /**
-    //  * @ORM\ManyToMany(targetEntity=PlantAttribute::class)
-    //  */
-    // private $habitat;
-
     public function __construct()
     {
-        $this->color = new ArrayCollection();
-        $this->season = new ArrayCollection();
-        $this->habitat = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,73 +158,25 @@ class PlantFeature
     /**
      * @return Collection<int, PlantAttribute>
      */
-    public function getColor(): Collection
+    public function getAttributes(): Collection
     {
-        return $this->color;
+        return $this->attributes;
     }
 
-    public function addColor(PlantAttribute $color): self
+    public function addAttribute(PlantAttribute $attribute): self
     {
-        if (!$this->color->contains($color)) {
-            $this->color[] = $color;
+        if (!$this->attributes->contains($attribute)) {
+            $this->attributes[] = $attribute;
         }
 
         return $this;
     }
 
-    public function removeColor(PlantAttribute $color): self
+    public function removeAttribute(PlantAttribute $attribute): self
     {
-        $this->color->removeElement($color);
+        $this->attributes->removeElement($attribute);
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, PlantAttribute>
-     */
-    public function getSeason(): Collection
-    {
-        return $this->season;
-    }
-
-    public function addSeason(PlantAttribute $season): self
-    {
-        if (!$this->season->contains($season)) {
-            $this->season[] = $season;
-        }
-
-        return $this;
-    }
-
-    public function removeSeason(PlantAttribute $season): self
-    {
-        $this->season->removeElement($season);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, PlantAttribute>
-     */
-    public function getHabitat(): Collection
-    {
-        return $this->habitat;
-    }
-
-    public function addHabitat(PlantAttribute $habitat): self
-    {
-        if (!$this->habitat->contains($habitat)) {
-            $this->habitat[] = $habitat;
-        }
-
-        return $this;
-    }
-
-    public function removeHabitat(PlantAttribute $habitat): self
-    {
-        $this->habitat->removeElement($habitat);
-
-        return $this;
-    }
-    
+       
 }

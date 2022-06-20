@@ -61,36 +61,42 @@
                     {% endfor %}
                 </ul>
             </div>
+            {% if attr.COLOR is defined %}
             <div>
-                <h5>Couleurs</h5>
+                <h5>Couleur</h5>
                 <ul>
-                    {% for color in post.plant.feature.color %}
+                    {% for color in attr.COLOR %}
                         <li>
-                            <div class="img-round-xs" style="background-color: {{ color }};"></div>
+                            {{ color.label }}
                         </li>
                     {% endfor %}
                 </ul>
             </div>
+            {% endif %}
+            {% if attr.SEASON is defined %}
             <div>
                 <h5>Saisons</h5>
                 <ul>
-                    {% for season in post.plant.feature.season %}
+                    {% for season in attr.SEASON %}
                         <li>
-                            {{ season }}
+                            {{ season.label }}
                         </li>
                     {% endfor %}
                 </ul>
             </div>
+            {% endif %}
+            {% if attr.HABITAT is defined %}
             <div>
                 <h5>Habitat</h5>
                 <ul>
-                    {% for habitat in post.plant.feature.habitat %}
+                    {% for habitat in attr.HABITAT %}
                         <li>
-                            {{ habitat }}
+                            {{ habitat.label }}
                         </li>
                     {% endfor %}
                 </ul>
             </div>
+            {% endif %}
         </div>
     </div>
 </section>

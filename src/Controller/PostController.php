@@ -6,6 +6,7 @@ use App\Entity\Plant;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Service\PlantService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -60,17 +61,20 @@ class PostController extends AbstractController
     /**
      * @Route("/{slug}", name="app_post_show", methods={"GET"})
      */
-    public function show(string $slug, Request $request): Response
+    public function show(string $slug, Request $request, PlantService $plantService): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        
-        $post = $em->getRepository(Post::class)->findOneBySlug($slug);
+        $entityManager  = $this->getDoctrine()->getManager();
+        $postRepository = $entityManager->getRepository(Post::class);
+
+        $post = $postRepository->findOneBySlug($slug);
+        $attr = $plantService->sortAttributes($post->getPlant()->getFeature());
 
         if ($request->isXmlHttpRequest()) {
             $item = $request->query->get('item');
             return new JsonResponse([
                 'html' => $this->renderView('post/_show_'.$item.'.html.twig', [
                     'post' => $post,
+                    'attr' => $attr
                 ])
             ]);
         }

@@ -6,7 +6,7 @@
     <section class="padding-four-lr pt-0 lg-padding-two-lr xs-no-padding-lr pb-5">
         <div class="container">
             <div class="row">
-                <div class="row m-auto text-center flex-center justify-content-between padding-6-rem-bottom md-padding-4-half-rem-bottom sm-padding-2-rem-bottom">
+                <div class="row m-auto text-center flex-center justify-content-between">
                     <!-- start filter navigation -->
                     <div class="text-center col-lg-2">
                         <form role="search" method="GET" class="search-form-ajax text-start">
@@ -45,9 +45,32 @@
                 </div>
                 <div id="accordion-attributes" class="panel-collapse collapse" data-bs-parent="#accordion-style-01">
                     <div class="row">
-                        <div class="col">
-                            
-                        </div>
+                        <form class="col">
+                            {% if attr.SEASON is defined %}
+                                <div class="d-block">
+                                    {% for season in attr.SEASON %}
+                                        <input id="{{season.type~'_'~season.label}}" name="{{season.type}}" type="checkbox" value="{{season.value}}">
+                                        <label for="{{season.type~'_'~season.label}}"><i class="fa {{season.icon}}">{{season.label|e}}</i></label>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if attr.COLOR is defined %}
+                                <div class="d-block">
+                                    {% for color in attr.COLOR %}
+                                        <input id="{{color.type~'_'~color.label}}" name="{{color.type}}" type="checkbox" value="{{color.value}}">
+                                        <label for="{{color.type~'_'~color.label}}"><div class="img-round-xs" style="background-color: {{color.value}};"></div></label>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if attr.HABITAT is defined %}
+                                <div class="d-block">
+                                    {% for habitat in attr.HABITAT %}
+                                        <input id="{{habitat.type~'_'~habitat.label}}" name="{{habitat.type}}" type="checkbox" value="{{habitat.value}}">
+                                        <label for="{{habitat.type~'_'~habitat.label}}"></label>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </form>
                     </div>
                 </div>
             </div>
