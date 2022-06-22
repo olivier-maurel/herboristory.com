@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Plant;
 use App\Form\PlantType;
+use App\Repository\PlantAttributeRepository;
 use App\Repository\PlantRepository;
+use App\Service\PlantService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +35,7 @@ class PlantController extends AbstractController
     /**
      * @Route("/new", name="app_plant_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, PlantService $plantService): Response
     {
         $plant = new Plant();
         $form = $this->createForm(PlantType::class, $plant);
@@ -48,6 +50,7 @@ class PlantController extends AbstractController
 
         return $this->renderForm('plant/new.html.twig', [
             'plant' => $plant,
+            'attr' => $plantService->sortAttributes(),
             'form' => $form,
         ]);
     }
@@ -65,7 +68,7 @@ class PlantController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_plant_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Plant $plant, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Plant $plant, PlantService $plantService, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PlantType::class, $plant);
         $form->handleRequest($request);
@@ -78,6 +81,7 @@ class PlantController extends AbstractController
 
         return $this->renderForm('plant/edit.html.twig', [
             'plant' => $plant,
+            'attr' => $plantService->sortAttributes(),
             'form' => $form,
         ]);
     }

@@ -57,7 +57,7 @@ class PlantFeature
     private $seed;
 
     /**
-     * @ORM\ManyToMany(targetEntity=PlantAttribute::class)
+     * @ORM\ManyToMany(targetEntity=PlantAttribute::class, cascade={"persist", "remove"})
      */
     private $attributes;
 
