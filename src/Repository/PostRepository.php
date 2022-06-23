@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Plant;
+use App\Entity\PlantAttribute;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Exception\ORMException;
@@ -51,7 +52,7 @@ class PostRepository extends ServiceEntityRepository
     /**
      * @return Post[] Returns an array of Post objects
      */
-    public function findBySearch($search, $category)
+    public function findBySearch($search, $category, $attributes)
     {
         $query = $this->createQueryBuilder('post')
             ->select('post')
@@ -82,6 +83,14 @@ class PostRepository extends ServiceEntityRepository
                 ->andWhere('plant.category LIKE :category')
                 ->setParameter('category', '%'.$category.'%')
             ;
+        if (!empty($attributes)) {
+            $query
+                ->innerJoin('plant.feature', 'feature')
+                ->innerJoin('feature.attributes', 'attribute')
+                ->andWhere('attribute.id IN(:attributes)')
+                ->setParameter('attributes', $attributes)
+            ;
+        }
 
         return $query
             ->orderBy('post.id', 'ASC')

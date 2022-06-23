@@ -46,30 +46,23 @@
                 <div id="accordion-attributes" class="panel-collapse collapse" data-bs-parent="#accordion-style-01">
                     <div class="row">
                         <form class="col">
-                            {% if attr.SEASON is defined %}
-                                <div class="d-block">
-                                    {% for season in attr.SEASON %}
-                                        <input id="{{season.type~'_'~season.label}}" name="{{season.type}}" type="checkbox" value="{{season.value}}">
-                                        <label for="{{season.type~'_'~season.label}}"><i class="fa {{season.icon}}">{{season.label|e}}</i></label>
+                            {% for key, array in attr %}
+                                <div data-type="{{ key }}">
+                                    {% for attribute in attr[key] %}
+                                        <label for="plant_feature_attributes_{{ attribute.id }}" class="attributes-filter label-{{ key }}" data-filter="{{ attribute.id }}">
+                                            {% if key == 'season' %}
+                                                <i class="fa {{ attribute.icon }}" style="color: {{ attribute.value }};"></i>
+                                            {% elseif key == 'color' %}
+                                                <div class="img-round-xs" style="background-color: {{ attribute.value }};"></div>
+                                            {% elseif key == 'habitat' %}
+                                                <div class="img-round-xs" style="background-color: {{ attribute.value }};"></div>
+                                            {% endif %}                                            
+                                            {{ attribute.label|u }}
+                                        </label>
+                                        <input id="plant_feature_attributes_{{ attribute.id }}" type="checkbox" value="{{ attribute.id }}">
                                     {% endfor %}
                                 </div>
-                            {% endif %}
-                            {% if attr.COLOR is defined %}
-                                <div class="d-block">
-                                    {% for color in attr.COLOR %}
-                                        <input id="{{color.type~'_'~color.label}}" name="{{color.type}}" type="checkbox" value="{{color.value}}">
-                                        <label for="{{color.type~'_'~color.label}}"><div class="img-round-xs" style="background-color: {{color.value}};"></div></label>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                            {% if attr.HABITAT is defined %}
-                                <div class="d-block">
-                                    {% for habitat in attr.HABITAT %}
-                                        <input id="{{habitat.type~'_'~habitat.label}}" name="{{habitat.type}}" type="checkbox" value="{{habitat.value}}">
-                                        <label for="{{habitat.type~'_'~habitat.label}}"></label>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
+                            {% endfor %}
                         </form>
                     </div>
                 </div>
@@ -117,6 +110,17 @@
             // Menu navbar
             
             setSearch(type, filter);
+            setPagination(page);
+
+        });
+
+        $(document.body).on('click', '.attributes-filter', function(){
+
+            var filter      = $(this).data('filter');
+            var type        = $(this).parent().data('type');
+            // Menu navbar
+
+            setSearch(type, filter, true);
             setPagination(page);
 
         });

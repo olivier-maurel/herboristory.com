@@ -220,3 +220,10 @@ a.disabled{
     top: 1.4rem;
     position: sticky;
 }
+.label-season {
+    padding: .08rem .49rem;
+    border: 2px solid #000000;
+    border-radius: 100px;
+    background: #000;
+    font-weight: bold;
+}

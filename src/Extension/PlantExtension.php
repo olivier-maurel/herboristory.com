@@ -1,6 +1,7 @@
 <?php
 namespace App\Extension;
 
+use App\Entity\PlantAttribute;
 use App\Entity\PlantFeature;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -14,6 +15,7 @@ class PlantExtension extends AbstractExtension
             new TwigFilter('getAlt', [$this, 'getAlt']),
             new TwigFilter('isToxic', [$this, 'isToxic']),
             new TwigFilter('getFeatures', [$this, 'getFeatures']),
+            new TwigFilter('getAttrRender', [$this, 'getAttrRender']),
         ];
     }
 
@@ -70,5 +72,25 @@ class PlantExtension extends AbstractExtension
             'fruct' => $plantFeature->getFruct(),
             'seed' => $plantFeature->getSeed()
         ];
+    }
+
+    public function getAttrRender(PlantAttribute $attribute)
+    {
+        $icon = $attribute->getIcon();
+        $value = $attribute->getValue();
+        $type = strtolower($attribute->getType());
+        $label = $attribute->getLabel();
+        $color = $attribute->getColor();
+
+        if (!is_null($icon))
+            $icon = "<i class=\"fa $icon\" style=\"color: $color\"></i>";
+        
+        if ($type == 'color')
+            $icon = "<div class=\"img-round-xs\" style=\"background-color: $color;\"></div>";
+
+        $label = "<span style=\"color: $color\">$label</span>";
+        $result = "<label class=\"label-$type\">$icon $label</label>";
+
+        return $result;
     }
 }

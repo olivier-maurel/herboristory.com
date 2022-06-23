@@ -21,9 +21,9 @@ class PlantService
             $attributes = $this->attributeService->findAll();
 
         foreach ($attributes as $attribute)
-            $result[$attribute->getType()][] = $attribute;
+            $result[strtolower($attribute->getType())][] = $attribute;
 
-        return $result;
+        return (isset($result)) ? $result : null;
     }
 
 }

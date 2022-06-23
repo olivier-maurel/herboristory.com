@@ -34,7 +34,12 @@ class IndexController extends AbstractController
     {
         $data = $postRepository->findBySearch(
             $request->query->get('query'),
-            $request->query->get('type')
+            $request->query->get('type'),
+            array_filter((array_merge(
+                (array)$request->query->get('season'),
+                (array)$request->query->get('color'),
+                (array)$request->query->get('habitat')
+            )), fn ($item) => '' !== $item)
         );
 
         $posts = $paginator->paginate(

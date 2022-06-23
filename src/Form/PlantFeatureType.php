@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\PlantAttribute;
 use App\Entity\PlantFeature;
+use App\Repository\PlantFeatureRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -25,36 +27,12 @@ class PlantFeatureType extends AbstractType
             ->add('seed')
             ->add('attributes', null, [
                 'expanded' => true,
-                'attr' => [
-                    'hidden' => true,
-                    'id' => null
-                ]
+                'multiple' => true
             ])
-        ;
-
-        // $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             
-    
-        //     
-    
-        //     
-    
-        //     $event->setData($data);
-        // });
-
-        $builder->get('attributes')->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) {
-                $data = $event->getData();
-                
-                foreach ($data as $key => $attr) {
-                    $return[$attr->getType()][] = $attr;
-                }
-
-                return null;
-            }
-        );
+        ;
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

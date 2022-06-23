@@ -20,15 +20,22 @@
             {{ form_row(form.feature.flower) }}
             {{ form_row(form.feature.fruct) }}
             {{ form_row(form.feature.seed) }}
-            {{ form_row(form.feature.attributes, {'id': null}) }}
         </div>
-        <div>
-            {% for season in attr.SEASON %}
-                <label for="{{ season.type ~ '_' ~ season.id }}">{{ season.label|u }}</label>
-                <input id="plant_feature_attributes_{{ season.id }}" type="checkbox" name="plant[feature][attributes][]" value="{{ season.id }}" {{ (season in plant.feature.attributes) ? 'checked' }}>
-            {% endfor %}
+        <div id="plant_feature">
+            <div id="plant_feature_attributes">
+                {% set i = 0 %}
+                {% for key, array in attr %}
+                    <div>
+                        {% for attribute in attr[key] %}
+                            {% set i = i + 1 %}
+                            <label for="plant_feature_attributes_{{ i }}">{{ attribute.label|u }}</label>
+                            <input type="checkbox" id="plant_feature_attributes_{{ i }}" name="plant[feature][attributes][]" value="{{ attribute.id }}" {{ (attribute in plant.feature.attributes) ? 'checked="checked"' }}>
+                            {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
         
     </div>
     <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_end(form, {'render_rest': false}) }}

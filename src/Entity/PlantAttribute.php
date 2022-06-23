@@ -37,6 +37,11 @@ class PlantAttribute
      */
     private $value;
 
+    /**
+     * @ORM\Column(type="string", length=32, nullable=true)
+     */
+    private $color;
+
     public function __toString()
     {
         return $this->label;    
@@ -91,6 +96,18 @@ class PlantAttribute
     public function setValue(?string $value): self
     {
         $this->value = $value;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

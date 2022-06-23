@@ -61,37 +61,37 @@
                     {% endfor %}
                 </ul>
             </div>
-            {% if attr.COLOR is defined %}
+            {% if attr.color is defined %}
             <div>
                 <h5>Couleur</h5>
                 <ul>
-                    {% for color in attr.COLOR %}
+                    {% for color in attr.color %}
                         <li>
-                            {{ color.label }}
+                            {{ color | getAttrRender() | raw }}
                         </li>
                     {% endfor %}
                 </ul>
             </div>
             {% endif %}
-            {% if attr.SEASON is defined %}
+            {% if attr.season is defined %}
             <div>
                 <h5>Saisons</h5>
                 <ul>
-                    {% for season in attr.SEASON %}
+                    {% for season in attr.season %}
                         <li>
-                            {{ season.label }}
+                            {{ season | getAttrRender() | raw }}
                         </li>
                     {% endfor %}
                 </ul>
             </div>
             {% endif %}
-            {% if attr.HABITAT is defined %}
+            {% if attr.habitat is defined %}
             <div>
-                <h5>Habitat</h5>
+                <h5>Habitats</h5>
                 <ul>
-                    {% for habitat in attr.HABITAT %}
+                    {% for habitat in attr.habitat %}
                         <li>
-                            {{ habitat.label }}
+                            {{ habitat | getAttrRender() | raw }}
                         </li>
                     {% endfor %}
                 </ul>
