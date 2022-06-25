@@ -1,0 +1,18 @@
+<tr>
+    <td><input id="noneAtt" type="radio" name="plant_attributes" value=""></td>
+    <td colspan="4">Nouvel attribut</td>
+</tr>
+{% for plant_feature_secondary in plant_feature_secondaries %}
+    <tr class="">
+        <td><input type="radio" name="plant_attributes" value="{{ plant_feature_secondary.id }}" {{ (id is defined and plant_feature_secondary.id == id) ? 'checked' }}></td>
+        <td class="text-center"><span class="badge bg-secondary">{{ plant_feature_secondary.type }}</span></td>
+        <td class="text-center"><i class="fa {{ plant_feature_secondary.icon }}"></i></td>
+        <td class="text-center">{{ plant_feature_secondary.label }}</td>
+        <td><div class="m-auto img-round-xs" style="background-color: {{ plant_feature_secondary.color }};"></div></td>
+        <td class="text-center">{{ plant_feature_secondary.value }}</td>
+    </tr>
+{% else %}
+    <tr>
+        <td colspan="6">no records found</td>
+    </tr>
+{% endfor %}

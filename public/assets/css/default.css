@@ -198,8 +198,8 @@ a.disabled{
     border-radius: 50%;
 }
 .img-round-xs {
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
 }
 .middle-top {
@@ -226,4 +226,7 @@ a.disabled{
     border-radius: 100px;
     background: #000;
     font-weight: bold;
+}
+.h-container {
+    height: calc(100vh - 69px);
 }

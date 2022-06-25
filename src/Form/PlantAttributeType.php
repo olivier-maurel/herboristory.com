@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\PlantAttribute;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,6 +16,7 @@ class PlantAttributeType extends AbstractType
     {
         $builder
             ->add('type', ChoiceType::class, [
+                'placeholder' => '',
                 'choices' => [
                     'Couleur' => 'COLOR',
                     'Saison' => 'SEASON',
@@ -23,6 +26,11 @@ class PlantAttributeType extends AbstractType
             ->add('label')
             ->add('icon')
             ->add('value')
+            ->add('color', ColorType::class, [
+                'attr' => [
+                    'class' => 'py-1'
+                ]
+            ])
         ;
     }
 

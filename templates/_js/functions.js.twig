@@ -31,7 +31,7 @@ function setParameters(parameters)
     var urlParams   = '?';
 
     $.each(parameters, function(k,v){
-        if (k !== '') {
+        if (k !== '' && v != '') {
             if ( typeof v == "object") {
                 v = v.join();
             }
@@ -57,7 +57,10 @@ function addParameter(parameters, item, multiple)
                 parameters[item[0]] = new Array();
             
             if (typeof parameters[item[0]] == "string")
-                parameters[item[0]] = parameters[item[0]].split(',');
+                if (parameters[item[0]] != '')
+                    parameters[item[0]] = parameters[item[0]].split(',');
+                else 
+                    parameters[item[0]] = [];
 
             let inArray = $.inArray(item[1].toString(), parameters[item[0]]);
 
@@ -111,7 +114,7 @@ function setSearch(type, filter, multiple = false)
     var parameters    = addParameter(getParameters(), [type, filter], multiple);
     var urlParameters = setParameters(parameters);
 
-    // Redirige l'utilisateur n'est pas sur la page "/search"
+    // Redirige l'utilisateur si il n'est pas sur la page "/search"
     if ("{{ app.request.attributes.get('_route') }}" !== 'app_search')
         window.location.replace("{{ path('app_search') }}" + urlParameters);
 
@@ -121,7 +124,7 @@ function setSearch(type, filter, multiple = false)
     // Génère l'animation de chargement
     $('#listingPostsContainer').fadeOut(100);
     var spinner = setSpinner($('#listingPostsContainer'));
-console.log(parameters);
+
     var queryParameters = {
         route: "{{ app.request.attributes.get('_route') }}",
         query: parameters['query'], 
@@ -166,7 +169,6 @@ function setPagination(page)
             };
 
             window.history.pushState( {} , '', setParameters(parameters));
-            console.log('OK');
             locked = true;
             $.get("{{ path('app_search') }}", queryParameters, 
                 function(data) {
@@ -185,6 +187,13 @@ function setPagination(page)
                 locked = false;
             });
         }
+    });
+}
+
+function ajaxSubmitPlantAttribute(form)
+{
+    $.post("{{ path('app_plant_feature_secondary_new') }}", {form: form}, function(data) {
+        console.log(data);
     });
 }
 

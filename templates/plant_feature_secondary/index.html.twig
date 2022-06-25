@@ -3,39 +3,88 @@
 {% block title %}PlantFeatureSecondary index{% endblock %}
 
 {% block body %}
-    <h1>PlantFeatureSecondary index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Type</th>
-                <th>Label</th>
-                <th>Icon</th>
-                <th>Value</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for plant_feature_secondary in plant_feature_secondaries %}
-            <tr>
-                <td>{{ plant_feature_secondary.id }}</td>
-                <td>{{ plant_feature_secondary.type }}</td>
-                <td>{{ plant_feature_secondary.label }}</td>
-                <td>{{ plant_feature_secondary.icon }}</td>
-                <td>{{ plant_feature_secondary.value }}</td>
-                <td>
-                    <a href="{{ path('app_plant_feature_secondary_show', {'id': plant_feature_secondary.id}) }}">show</a>
-                    <a href="{{ path('app_plant_feature_secondary_edit', {'id': plant_feature_secondary.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div class="row">
+    <div class="col-lg-6 overflow-auto h-container">
+        <table class="table py-5">
+            <thead>
+                <tr>
+                    <th class="text-center">Type</th>
+                    <th class="text-center">Label</th>
+                    <th class="text-center">Icon</th>
+                    <th class="text-center">Color</th>
+                    <th class="text-center">Value</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                {{ include ('plant_feature_secondary/_table.html.twig', {'plant_feature_secondaries': plant_feature_secondaries}) }}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-6">
+        {{ include ('plant_feature_secondary/_form.html.twig', {'form': form}) }}
+    </div>
+</div>
+{% endblock %}
 
-    <a href="{{ path('app_plant_feature_secondary_new') }}">Create new</a>
+{% block javascripts %}
+<script>
+
+    $(document.body).on('submit', 'form[name=plant_attribute]', function(e){
+        e.preventDefault();
+
+        let formData = new FormData($(this)[0]);
+        let id = $('[name=plant_attributes]:checked').val();
+        let url = `{{ path('app_plant_feature_secondary_new') }}${((id != undefined)?'/'+id:'')}`;
+
+        $.ajax({
+            url: url,
+            method:"POST",
+            data: formData,
+            contentType:false,
+            processData:false,
+            success: function(data)
+            {
+                $('tbody#tbody').html(data.html);
+            }
+
+        });
+    });
+
+    $(document.body).on('click', '[name=plant_attributes]', function(e){
+        var form = $('form[name=plant_attribute]');
+        if ($(this).val() == '') {
+            $.each(form[0].elements, function(key, val){
+                form[0].elements[key].value = null;
+            });
+            $('button[data-role=delete]').hide();
+            return;
+        }
+        if ($(this).prop('checked')) {
+            $.get("{{ path('app_plant_feature_secondary_show') }}", {id: $(this).val()}, function(data){
+                $.each(form[0].elements, function(key, val){
+                    let label = val.id.split('_')[val.id.split('_').length - 1];
+                    if ($.inArray(label, Object.keys(data)) != -1)
+                        form[0].elements[key].value = data[label];
+                    $('button[data-role=delete]').show();
+                });
+            });
+        }
+    });
+
+    $(document.body).on('click', 'button[data-role=delete]', function(e){
+        var form = $('form[name=plant_attribute]');
+        let id = $('[name=plant_attributes]:checked').val();
+
+        $.each(form[0].elements, function(key, val){
+            form[0].elements[key].value = null;
+        });
+
+        $.post(`{{ path('app_plant_feature_secondary_delete') }}/${id}`, function(data){
+            $('tbody#tbody').html(data.html);
+            $('#noneAtt').attr('checked', true)
+        });
+    });
+
+</script>
 {% endblock %}
