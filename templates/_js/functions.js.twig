@@ -33,7 +33,7 @@ function setParameters(parameters)
     $.each(parameters, function(k,v){
         if (k !== '') {
             if ( typeof v == "object") {
-                v = v.join(',');
+                v = v.join();
             }
             urlParams = urlParams + k + '=' + v + '&';
         }
@@ -53,17 +53,17 @@ function addParameter(parameters, item, multiple)
     if (item[1] != "") {
         if (multiple == true) {
 
-            if (parameters[item[0]] == undefined)
-                parameters[item[0]] = [];
-
+            if (parameters[item[0]] === undefined)
+                parameters[item[0]] = new Array();
+            
             if (typeof parameters[item[0]] == "string")
-                parameters[item[0]] = new Array(parameters[item[0]].split(','));
+                parameters[item[0]] = parameters[item[0]].split(',');
 
-            let inArray = $.inArray(item[1].toString(), parameters[item[0]][0]);
+            let inArray = $.inArray(item[1].toString(), parameters[item[0]]);
 
             if (inArray != -1)
-                parameters[item[0]][0].splice(inArray, 1);
-            else 
+                parameters[item[0]].splice(inArray, 1);
+            else
                 parameters[item[0]].push(item[1]);
         } 
         else

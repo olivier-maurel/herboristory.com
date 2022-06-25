@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\PlantAttribute;
 use App\Entity\PlantFeature;
 use App\Repository\PlantFeatureRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -25,7 +26,8 @@ class PlantFeatureType extends AbstractType
             ->add('flower')
             ->add('fruct')
             ->add('seed')
-            ->add('attributes', null, [
+            ->add('attributes', EntityType::class, [
+                'class' => PlantAttribute::class,
                 'expanded' => true,
                 'multiple' => true
             ])

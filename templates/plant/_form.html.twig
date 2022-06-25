@@ -23,19 +23,16 @@
         </div>
         <div id="plant_feature">
             <div id="plant_feature_attributes">
-                {% set i = 0 %}
                 {% for key, array in attr %}
-                    <div>
-                        {% for attribute in attr[key] %}
-                            {% set i = i + 1 %}
-                            <label for="plant_feature_attributes_{{ i }}">{{ attribute.label|u }}</label>
-                            <input type="checkbox" id="plant_feature_attributes_{{ i }}" name="plant[feature][attributes][]" value="{{ attribute.id }}" {{ (attribute in plant.feature.attributes) ? 'checked="checked"' }}>
-                            {% endfor %}
-                    </div>
+                    {% for attribute in attr[key] %}
+                        <label for="plant_feature_attributes_{{ attribute.id }}">{{ attribute.label|u }}</label>
+                        <input type="checkbox" id="plant_feature_attributes_{{ attribute.id }}" name="plant[feature][attributes][]" value="{{ attribute.id }}" {{ (attribute in plant.feature.attributes) ? 'checked="checked"' }}>
+                    {% endfor %}
+                    <br>
                 {% endfor %}
             </div>
         </div>
-        
+        {{ form_row(form._token) }}
     </div>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form, {'render_rest': false}) }}
