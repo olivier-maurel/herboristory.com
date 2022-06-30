@@ -4,20 +4,12 @@
 
 {% block body %}
 <div>
-    <div class="col-lg-12">
-        <a href="{{ path('app_plant_new') }}"><i class="fa fa-plus"></i> plante</a>
-        <a href="{{ path('app_post_new') }}"><i class="fa fa-plus"></i> article</a>
-        <a href="{{ path('app_plant_feature_secondary_new') }}"><i class="fa fa-plus"></i> attribut</a>
+    <div class="col-lg-12 flex-center">
+        <a href="{{ path('app_plant_new') }}" class="btn btn-sm btn-outline-success"><i class="fab fa-pagelines"></i> plante</a>
+        <a href="{{ path('app_post_index') }}" class="btn btn-sm btn-outline-success"><i class="fa fa-newspaper"></i> article</a>
+        <a href="{{ path('app_plant_feature_secondary_index') }}" class="btn btn-sm btn-outline-success"><i class="fa fa-tag"></i> attribut</a>
     </div>
     <table class="table">
-        <thead>
-            <tr>
-                <th>Plante</th>
-                <th>Caractéristique</th>
-                <th>Article</th>
-                <th>Contenu</th>
-            </tr>
-        </thead>
         <tbody>
             {% for plant in plants %}
             <tr>
@@ -27,9 +19,13 @@
                         {{ plant.commonName }}
                     </a>
                 </td>
-                <td>{{ (plant.feature is not null) ? 'V' : 'X' }}</td>
-                <td>{{ (plant.post is not null) ? 'V' : 'X' }}</td>
-                <td>{{ (plant.post.content is defined and plant.post.content is not null) ? 'V' : 'X' }}</td>
+                <td>
+                    {% if (plant.post is not null) %}
+                        <span class="badge bg-primary">Article créé</span>
+                    {% else %}
+                        <span class="badge bg-danger">Sans article</span>
+                    {% endif %}
+                </td>
                 <td>
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-ellipsis-h"></i>

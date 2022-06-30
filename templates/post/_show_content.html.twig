@@ -2,7 +2,7 @@
     <h2 class="h1 text-center text-green-h text-uppercase fw-bold">Description</h2>
     <p class="mt-3 pt-4 border-top" style="border-color: #e0f9e1 !important;">{{ post.content.descriptionPage }}</p>
     
-    
+    {% if (post.plant is not null) %}
     <div class="panel-group accordion-style-01 no-margin-bottom" id="accordion-style-01">
         {% for feature, content in (post.plant.feature|getFeatures) %}
             {% if content is not null %}
@@ -25,6 +25,7 @@
             {% endif %}
         {% endfor %}
     </div>
+    {% endif %}
 </section>
 
 {% if post.content.medicinalPage is not null %}

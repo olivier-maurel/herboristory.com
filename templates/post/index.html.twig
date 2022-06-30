@@ -3,14 +3,14 @@
 {% block title %}Post index{% endblock %}
 
 {% block body %}
-    <h1>Post index</h1>
+    <a href="{{ path('app_dashboard') }}" class="btn btn-secondary">Dashboard</a>
+
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Title</th>
-                <th>Content</th>
                 <th>Keywords</th>
                 <th>Description</th>
                 <th>Image</th>
@@ -24,14 +24,13 @@
             <tr>
                 <td>{{ post.id }}</td>
                 <td>{{ post.title }}</td>
-                <td>{{ post.content }}</td>
                 <td>{{ post.keywords ? post.keywords|json_encode : '' }}</td>
                 <td>{{ post.description }}</td>
                 <td>{{ post.image }}</td>
                 <td>{{ post.modifiedAt ? post.modifiedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_post_show', {'id': post.id}) }}">show</a>
+                    <a href="{{ path('app_post_show', {'slug': post.slug}) }}">show</a>
                     <a href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>
                 </td>
             </tr>

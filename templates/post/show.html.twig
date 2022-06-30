@@ -14,7 +14,7 @@
 
 
         <section class="position-relative py-0">
-            {% if ((post.plant.category|isToxic) == true) %}
+            {% if (post.plant is not null and (post.plant.category|isToxic) == true) %}
                 <div class="col-12 alert alert-danger alert-dismissible fade in show" role="alert">
                     <!-- <button type="button" class="btn-close line-height-unset" data-bs-dismiss="alert" aria-label="Close"></button> -->
                     <strong class="d-block text-center text-danger h3">Danger!</strong>
@@ -39,16 +39,20 @@
                     </div>
                 </div>
             {% endif %}
-            <img src="{{ post.image ?: 'https://via.placeholder.com/800x650' }}" class="vignette-image w-100" style="height: 450px !important;" alt="Photo principale - {{ post.plant.commonName }}">
+            <img src="{{ post.image ?: 'https://via.placeholder.com/800x650' }}" class="vignette-image w-100" style="height: 450px !important;" alt="Photo principale - {# post.plant.commonName #}">
             <div class="w-100 d-flex justify-content-end middle-top px-2">
-                {% for category in post.plant.category %}
-                    <i class="fa {{ category|getIcon }} text-white round type-icon-lg mx-1" title="{{ category|getAlt }}"></i>
-                {% endfor %}
+                {% if post.plant is not null %}
+                    {% for category in post.plant.category %}
+                        <i class="fa {{ category|getIcon }} text-white round type-icon-lg mx-1" title="{{ category|getAlt }}"></i>
+                    {% endfor %}
+                {% endif %}
             </div>
         </section>
 
         <div class="row flex-row-reverse py-4">
-            <div id="rightbar" class="col-lg-4 position-relative"></div>
+            {% if post.plant is not null %}
+                <div id="rightbar" class="col-lg-4 position-relative"></div>
+            {% endif %}
             
             <div id="content" class="col-lg-8 position-relative"></div>
         </div>

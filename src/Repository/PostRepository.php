@@ -57,6 +57,7 @@ class PostRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('post')
             ->select('post')
             ->leftJoin('post.plant', 'plant')
+            ->where('post.plant IS NOT NULL')
         ;
 
         // Recherche par texte

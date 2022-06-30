@@ -26,7 +26,7 @@ class PostController extends AbstractController
     {
         $posts = $entityManager
             ->getRepository(Post::class)
-            ->findAll();
+            ->findByPlant(null);
 
         return $this->render('post/index.html.twig', [
             'posts' => $posts,
@@ -65,18 +65,21 @@ class PostController extends AbstractController
     {
         $entityManager  = $this->getDoctrine()->getManager();
         $postRepository = $entityManager->getRepository(Post::class);
-
-        $post = $postRepository->findOneBySlug($slug);
-        $attr = $plantService->sortAttributes($post->getPlant()->getFeature());
+        $post  = $postRepository->findOneBySlug($slug);
+        $plant = $post->getPlant();
+        $attr  = ($plant) ? $plantService->sortAttributes($plant->getFeature()) : null;
 
         if ($request->isXmlHttpRequest()) {
-            $item = $request->query->get('item');
+
+            $item = ($plant) ? $request->query->get('item') : 'content_without_plant';
+
             return new JsonResponse([
                 'html' => $this->renderView('post/_show_'.$item.'.html.twig', [
                     'post' => $post,
                     'attr' => $attr
                 ])
             ]);
+
         }
 
         return $this->render('post/show.html.twig', [

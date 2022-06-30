@@ -51,11 +51,11 @@
                                     {% for attribute in attr[key] %}
                                         <label for="plant_feature_attributes_{{ attribute.id }}" class="attributes-filter label-{{ key }}" data-filter="{{ attribute.id }}">
                                             {% if key == 'season' %}
-                                                <i class="fa {{ attribute.icon }}" style="color: {{ attribute.value }};"></i>
+                                                <i class="fa {{ attribute.icon }}" style="color: {{ attribute.color }};"></i>
                                             {% elseif key == 'color' %}
-                                                <div class="img-round-xs" style="background-color: {{ attribute.value }};"></div>
+                                                <div class="img-round-xs" style="background-color: {{ attribute.color }};"></div>
                                             {% elseif key == 'habitat' %}
-                                                <div class="img-round-xs" style="background-color: {{ attribute.value }};"></div>
+                                                <div class="img-round-xs" style="background-color: {{ attribute.color }};"></div>
                                             {% endif %}                                            
                                             {{ attribute.label|u }}
                                         </label>

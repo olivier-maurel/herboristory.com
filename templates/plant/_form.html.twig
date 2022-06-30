@@ -26,7 +26,7 @@
                 {% for key, array in attr %}
                     {% for attribute in attr[key] %}
                         <label for="plant_feature_attributes_{{ attribute.id }}">{{ attribute.label|u }}</label>
-                        <input type="checkbox" id="plant_feature_attributes_{{ attribute.id }}" name="plant[feature][attributes][]" value="{{ attribute.id }}" {{ (attribute in plant.feature.attributes) ? 'checked="checked"' }}>
+                        <input type="checkbox" id="plant_feature_attributes_{{ attribute.id }}" name="plant[feature][attributes][]" value="{{ attribute.id }}" {{ (plant.feature.attributes is defined and attribute in plant.feature.attributes) ? 'checked="checked"' }}>
                     {% endfor %}
                     <br>
                 {% endfor %}

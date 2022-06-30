@@ -36,22 +36,21 @@ class PlantAttributeController extends AbstractController
     }
 
     /**
-     * @Route("/new/{id}", name="app_plant_feature_secondary_new", methods={"POST"}, defaults={"id" = 0})
+     * @Route("/new/{id}", name="app_plant_feature_secondary_new", methods={"POST"}, requirements={"id" = "\d*"}, defaults={"id" = null})
      */
-    public function new(int $id = null, Request $request, EntityManagerInterface $entityManager): Response
+    public function new($id = null, Request $request, EntityManagerInterface $entityManager): Response
     {
         if ($id != null)
-            $plantAttribute = $entityManager
-                ->getRepository(PlantAttribute::class)
-                ->findOneById($id);
+            $plantAttribute = $entityManager->getRepository(PlantAttribute::class)->findOneById($id);
         else
             $plantAttribute = new PlantAttribute();
 
         $form = $this->createForm(PlantAttributeType::class, $plantAttribute);
         $form->handleRequest($request);
 
-        if ($id === null)
+        if ($id == null)
             $entityManager->persist($plantAttribute);
+
         $entityManager->flush();
 
         $plantFeatureSecondaries = $entityManager

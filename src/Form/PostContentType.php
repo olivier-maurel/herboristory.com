@@ -28,24 +28,34 @@ class PostContentType extends AbstractType
             ->add('industrial_page', TextareaType::class, [
                 'required' => false
             ])
-            ->add('images', FileType::class, [
+            ->add('images', null, [
                 'required' => false
             ])
             ->add('links')
         ;
 
-        // $builder->get('keywords')
-        //     ->addModelTransformer(new CallbackTransformer(
-        //         function ($tagsAsArray) {
-        //             // transform the array to a string
-        //             return implode(',', $tagsAsArray);
-        //         },
-        //         function ($tagsAsString) {
-        //             // transform the string back to an array
-        //             return explode(',', $tagsAsString);
-        //         }
-        //     ))
-        // ;
+        $builder->get('images')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($tagsAsArray) {
+                    return implode(',', $tagsAsArray);
+                },
+                function ($tagsAsString) {
+                    return explode(',', $tagsAsString);
+                }
+            ))
+        ;
+
+        $builder->get('links')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($tagsAsArray) {
+                    return implode(',', $tagsAsArray);
+                },
+                function ($tagsAsString) {
+                    return explode(',', $tagsAsString);
+                }
+            ))
+        ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
