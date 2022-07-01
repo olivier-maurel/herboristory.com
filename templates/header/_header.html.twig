@@ -50,14 +50,45 @@
                             </ul>
                         </div>
                     {% else %}
-                    <a href="{{ path('app_login') }}" class="btn btn-sm btn-rounded">
-                        Se connecter
-                    </a>
+                    <div class="col-auto text-end">
+                        <div class="header-push-button">
+                            <a href="javascript:void(0);" class="push-button " style="z-index: 900;">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </a>
+                        </div>
+                    </div>
                     {% endif %}
                 </div>
 
             </div>
         </div>
     </nav>
+
+    <div class="hamburger-menu hamburger-menu-big-font w-100 xl-w-100 h-container" style="background: #9acc9cd4; overflow-y: hidden; top: 69px;">
+        <div class="row g-0 h-100">
+            <div class="col-lg-8 col-sm-12 m-auto">
+                <div class="row g-0 align-items-center justify-content-center h-100 padding-5-half-rem-all xs-padding-3-rem-all">
+                    <div class="col-12 menu-list-wrapper menu-list-wrapper-small text-center text-md-start mCustomScrollbar _mCS_1 mCS_no_scrollbar" data-scroll-options="{ &quot;theme&quot;: &quot;light&quot; }">
+                        <ul class="menu-list alt-font w-100 text-center">
+                            <li class="menu-list-item"><a href="{{ path('app_index') }}">Accueil</a></li>
+                            <li class="menu-list-item"><a href="{{ path('app_search') }}">Plantes</a></li>
+                            <li class="menu-list-item"><a href="{{ path('app_post_index') }}">Articles</a></li>
+                            <li class="menu-list-item"><a href="{{ path('app_about') }}">A propos</a></li>
+                            <li class="menu-list-item"><a href="{{ path('app_contact') }}">Contact</a></li>
+                        </ul>
+                        <div class="alt-font margin-50px-top social-icon-style-07">
+                            <ul class="list-style-03 light text-center">
+                                <li><a class="facebook" href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f w-30px"></i>Facebook</a></li>
+                                <li class="no-border"><a class="instagram" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram w-30px"></i>Instagram</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- end navigation -->
 </header>

@@ -9,9 +9,8 @@
 
     {{ include('post/_delete_form.html.twig') }} -->
 
-        <a href="{{ setReferer(app.request) }}" class="btn btn-danger">Retour</a>
+    <a href="{{ setReferer(app.request) }}" class="btn btn-danger">Retour</a>
     <article class="py-5">
-
 
         <section class="position-relative py-0">
             {% if (post.plant is not null and (post.plant.category|isToxic) == true) %}

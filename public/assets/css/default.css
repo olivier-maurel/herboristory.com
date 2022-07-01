@@ -230,3 +230,9 @@ a.disabled{
 .h-container {
     height: calc(100vh - 69px);
 }
+.hamburger-menu-big-font .menu-list li a {
+    font-size: 1.8rem;
+}
+.menu-list-wrapper.menu-list-wrapper-small {
+    max-height: 90vh;
+}
