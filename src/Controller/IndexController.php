@@ -66,7 +66,8 @@ class IndexController extends AbstractController
         return $this->render('index/search.html.twig', [
             'posts' => $posts,
             'attr' => $plantService->sortAttributes(),
-            'list' => $list
+            'list' => $list,
+            'params' => $request->query->all()
         ]);
     }
 
