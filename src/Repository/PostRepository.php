@@ -55,7 +55,7 @@ class PostRepository extends ServiceEntityRepository
     public function findBySearch($search, $category, $attributes)
     {
         $query = $this->createQueryBuilder('post')
-            ->select('post')
+            ->select('DISTINCT post')
             ->leftJoin('post.plant', 'plant')
             ->where('post.plant IS NOT NULL')
         ;
@@ -92,21 +92,23 @@ class PostRepository extends ServiceEntityRepository
                 ->setParameter('attributes', $attributes)
             ;
         }
-
-        return $query
+            
+            return $query
             ->orderBy('post.id', 'ASC')
             ->getQuery()
             ->getResult() 
         ;
     }
 
-//    public function findOneBySomeField($value): ?Post
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   public function findOthersPosts(Post $post, int $limit): ?array
+   {
+       return $this->createQueryBuilder('post')
+            ->where('post.id != :post')
+            ->setParameter('post', $post->getId())
+            ->orderBy('post.created_at', 'DESC')
+            ->getQuery() 
+            ->setMaxResults($limit)
+            ->getResult()
+        ;
+   }
 }

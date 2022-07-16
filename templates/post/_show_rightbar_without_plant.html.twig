@@ -1,0 +1,20 @@
+<section class="p-0">
+    <div class="" style="">
+        <div class="margin-5-rem-bottom xs-margin-35px-bottom wow animate__fadeIn" style="visibility: visible; animation-name: fadeIn;">
+            <span class="alt-font font-weight-500 text-large text-extra-dark-gray d-block margin-35px-bottom">Recent posts</span>
+            <ul class="latest-post-sidebar position-relative">
+                {% for post in attr %}
+                    <li class="d-flex wow animate__fadeIn border-bottom" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">
+                        <figure class="flex-shrink-0">
+                            <a href="{{ path('app_post_show', {slug: post.slug}) }}"><img class="border-radius-3px h-100 w-100" src="{{ post.image }}" alt="" data-no-retina="" style="object-fit: cover;"></a>
+                        </figure>
+                        <div class="media-body flex-grow-1">
+                            <a href="{{ path('app_post_show', {slug: post.slug}) }}" class="font-weight-500 text-extra-dark-gray d-inline-block margin-five-bottom md-margin-two-bottom">{{ post.title }}</a>
+                            <span class="text-medium d-block line-height-22px">{{ post.description }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>

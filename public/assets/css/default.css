@@ -192,6 +192,10 @@ a.disabled{
     box-shadow: 0px 0px 3px #0003;
     font-size: 1.9rem;
 }
+.type-icon-sm {
+    padding: .55rem;
+    font-size: .9rem;
+}
 .img-round-sm {
     width: 45px;
     height: 45px;
@@ -232,9 +236,15 @@ a.disabled{
     color: black !important;
     border-color: #419e3c;
 }
-.label-color.active {
-    color: black !important;
-    border-color: #419e3c;
+.label-color div {
+    opacity: .6;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+}
+.label-color.active div {
+    opacity: 1;
+    border-color: #374236;
+    box-shadow: 0px 0px 5px #0005;
 }
 .h-container {
     height: calc(100vh - 69px);

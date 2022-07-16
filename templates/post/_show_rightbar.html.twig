@@ -19,6 +19,14 @@
                 {% if post.content.industrialPage is not null %}
                     <li class="nav"><a href="#industrialPage" class="btn btn-sm">Artisanale</a></li>
                 {% endif %}
+
+                {% if post.content.images is not null %}
+                    <li class="nav"><a href="#imagesPage" class="btn btn-sm">Images</a></li>
+                {% endif %}
+
+                {% if post.content.links is not null %}
+                    <li class="nav"><a href="#linksPage" class="btn btn-sm">Liens</a></li>
+                {% endif %}
             </ul>
         </div>
         <div class="card-body">
@@ -50,17 +58,6 @@
                     </tr>
                 </tbody>
             </table>
-            <div>
-                <h5>Similarités</h5>
-                <ul>
-                    {% for plant in post.plant.similitudes %}
-                        <li><a href="{{ path('app_post_show', {slug: plant.post.slug}) }}">
-                            <img src="{{ plant.post.image }}" class="img-round-sm">
-                            {{ plant.commonName }}
-                        </a></li>
-                    {% endfor %}
-                </ul>
-            </div>
             {% if attr.color is defined %}
             <div>
                 <h5>Couleur</h5>
@@ -97,6 +94,33 @@
                 </ul>
             </div>
             {% endif %}
+            <div>
+                <h5>Similarités</h5>
+                <ul>
+                    {% for plant in post.plant.similitudes %}
+                        <!-- <li><a href="{{ path('app_post_show', {slug: plant.post.slug}) }}">
+                            <img src="{{ plant.post.image }}" class="img-round-sm">
+                            {{ plant.commonName }}
+                        </a></li> -->
+                        <li class="col-lg-12 m-auto my-1 flex-center justify-content-between bg-beige round-sm overflow-hidden" style="padding: 2px;">
+                            <a href="{{ path('app_post_show', {slug:plant.post.slug}) }}" title="{{ plant.commonName }}" class="bg-light flex-center justify-content-between w-100 round-sm">
+                                <div>
+                                    <img src="{{ plant.post.image }}" style="height: 40px; width: 100px; object-fit: cover; border-radius: 5px 0 0 5px;">
+                                </div>
+                                <div class="text-start col px-2 m-0 d-flex flex-column">
+                                    <span class="h6 font-weight-500 text-dark m-0">{{ plant.commonName | u.truncate(25, '...') }}</span>
+                                    <span class="small text-muted opacity-75" style="line-height: initial;">{{ plant.scientificGenus ~ ' ' ~ plant.scientificSpecies }}</span>
+                                </div>
+                                <div class="d-flex px-2">
+                                    {% for category in plant.category %}
+                                        <i class="fa {{ category|getIcon }} mx-1 text-white round type-icon type-icon-sm" title="{{ category|getAlt }}"></i>
+                                    {% endfor %}
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 </section>

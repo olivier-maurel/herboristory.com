@@ -29,12 +29,9 @@
                 
                 <div class="col flex-end flex-center-y">
                     {% if is_granted('ROLE_USER') %}
-                        <a href="{{ path('app_post_new') }}" style="height: 32px; width: 32px;" class="btn btn-sm btn-rounded border flex-center">
-                            <i class="fa fa-plus small"></i>
-                        </a>
                         <div class="position-relative" style="width:fit-content">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="" class="profile-picture sm">
+                                <img src="https://i.pinimg.com/originals/b4/96/bb/b496bb42b647e44e429d4be15a909231.jpg" class="profile-picture sm">
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li>
@@ -49,7 +46,7 @@
                                 </li>
                             </ul>
                         </div>
-                    {% else %}
+                    {% endif %}
                     <div class="col-auto text-end">
                         <div class="header-push-button">
                             <a href="javascript:void(0);" class="push-button " style="z-index: 900;">
@@ -60,7 +57,6 @@
                             </a>
                         </div>
                     </div>
-                    {% endif %}
                 </div>
 
             </div>

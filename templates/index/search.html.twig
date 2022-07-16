@@ -50,7 +50,7 @@
                                 <div class="text-center" data-type="{{ key }}">
                                     <span class="d-block mb-2">{{ key }}</span>
                                     {% for attribute in attr[key] %}
-                                        <label for="plant_feature_attributes_{{ attribute.id }}" class="btn attributes-filter label-{{ key }} {{ (params[key] is defined and attribute.id in params[key]) ? 'active' }}" data-filter="{{ attribute.id }}">
+                                        <label for="plant_feature_attributes_{{ attribute.id }}" class="btn attributes-filter label-{{ key }} {{ (params[key] is defined and (attribute.id in params[key]|split(','))) ? 'active' }}" data-filter="{{ attribute.id }}">
                                             {% if key == 'season' %}
                                                 <i class="fa {{ attribute.icon }}" style="color: {{ attribute.color }};"></i>
                                                 {{ attribute.label|u }}

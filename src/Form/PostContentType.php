@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -29,7 +30,9 @@ class PostContentType extends AbstractType
                 'required' => false
             ])
             ->add('images', null, [
-                'required' => false
+                'mapped' => true,
+                'required' => false,
+
             ])
             ->add('links')
         ;
@@ -37,10 +40,12 @@ class PostContentType extends AbstractType
         $builder->get('images')
             ->addModelTransformer(new CallbackTransformer(
                 function ($tagsAsArray) {
-                    return implode(',', $tagsAsArray);
+                    if ($tagsAsArray != null)
+                        return implode(',', $tagsAsArray);
                 },
                 function ($tagsAsString) {
-                    return explode(',', $tagsAsString);
+                    if ($tagsAsString != '')
+                        return explode(',', $tagsAsString);
                 }
             ))
         ;
@@ -48,10 +53,12 @@ class PostContentType extends AbstractType
         $builder->get('links')
             ->addModelTransformer(new CallbackTransformer(
                 function ($tagsAsArray) {
-                    return implode(',', $tagsAsArray);
+                    if ($tagsAsArray != null)
+                        return implode(',', $tagsAsArray);
                 },
                 function ($tagsAsString) {
-                    return explode(',', $tagsAsString);
+                    if ($tagsAsString != '')
+                        return explode(',', $tagsAsString);
                 }
             ))
         ;

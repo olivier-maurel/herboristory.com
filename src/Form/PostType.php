@@ -22,8 +22,10 @@ class PostType extends AbstractType
             ->add('slug')
             ->add('keywords')
             ->add('description', TextareaType::class)
-            ->add('image', null)
+            ->add('image')
             ->add('plant', EntityType::class, [
+                'empty_data' => null,
+                'required' => false,
                 'class' => Plant::class,
                 'attr' => [
                     'hidden' => true

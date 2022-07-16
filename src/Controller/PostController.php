@@ -40,7 +40,6 @@ class PostController extends AbstractController
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
-        //dd($request->request->all());
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
@@ -67,11 +66,14 @@ class PostController extends AbstractController
         $postRepository = $entityManager->getRepository(Post::class);
         $post  = $postRepository->findOneBySlug($slug);
         $plant = $post->getPlant();
-        $attr  = ($plant) ? $plantService->sortAttributes($plant->getFeature()) : null;
+        $attr  = ($plant) 
+            ? $plantService->sortAttributes($plant->getFeature()) 
+            : $postRepository->findOthersPosts($post, 6);
 
         if ($request->isXmlHttpRequest()) {
 
-            $item = ($plant) ? $request->query->get('item') : 'content_without_plant';
+            $template = ($plant == null) ? '_without_plant' : ''; 
+            $item     = $request->query->get('item') . $template;
 
             return new JsonResponse([
                 'html' => $this->renderView('post/_show_'.$item.'.html.twig', [

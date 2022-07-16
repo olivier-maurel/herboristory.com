@@ -48,12 +48,9 @@
             </div>
         </section>
 
-        <div class="row flex-row-reverse py-4">
-            {% if post.plant is not null %}
-                <div id="rightbar" class="col-lg-4 position-relative"></div>
-            {% endif %}
-            
-            <div id="content" class="col-lg-8 position-relative"></div>
+        <div class="row flex-row{{ (post.plant is null) ? '-reverse' : '' }} py-4">
+            <div id="content" class="col-lg-8 col-sm-12 position-relative"></div>
+            <div id="rightbar" class="col-lg-4 col-sm-12 position-relative"></div>
         </div>
 
     </article>
